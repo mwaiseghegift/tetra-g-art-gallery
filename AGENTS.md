@@ -4,7 +4,7 @@ This file provides guidance to AI coding agents (Claude Code, GitHub Copilot, et
 
 ## Project overview
 
-Tetra-G Art Gallery is a digital art portfolio platform with QR-code-linked artwork authentication and storytelling. See `docs/system-overview.md` for the full product spec and `docs/pages.md` for the planned page/route list. `docs/architecture.md` describes the intended module layout — much of this is aspirational; the codebase is currently an early scaffold (see "Current state" notes under each project below).
+Tetra-G Art Gallery is a digital art portfolio platform with QR-code-linked artwork authentication and storytelling. See `docs/system-overview.md` for the full product spec and `docs/pages.md` for the planned page/route list. `docs/architecture.md` describes the intended module layout — much of this is aspirational; the codebase is currently an early scaffold (see "Current state" notes under each project below). `docs/api.md` documents the implemented backend REST endpoints (auth, artworks, collections, QR codes, signatures).
 
 The repo is split into two independently-run projects:
 
@@ -41,15 +41,16 @@ python manage.py createsuperuser
 
 Structure (per `docs/architecture.md`):
 
-- `accounts/` — account/auth logic (currently empty models/views skeleton)
-- `apps/` — intended home for domain modules (`artworks`, `collections`, `qr_codes`, `analytics`, `signatures` — mapping to the modules in `docs/system-overview.md` section 6); only `apps/__init__.py` exists so far
+- `accounts/` — JWT authentication and user account endpoints (registration, login/token, `/me`)
+- `apps/` — domain modules: `artworks`, `collections`, `qr_codes`, `signatures` are implemented; `analytics` is still planned (mapping to the modules in `docs/system-overview.md` section 6)
 - `config/` — project settings (`settings.py`), URL routing (`urls.py`), WSGI/ASGI entry points
-- `core/` — shared models/services/utilities/constants across apps (currently empty skeleton)
+- `core/` — shared models/services/utilities/constants across apps (currently empty skeleton, not registered)
 
 Current state / gotchas:
 
 - `DEBUG = True` and `SECRET_KEY` is the auto-generated dev key — both must change before any deployment.
-- `accounts` and `core` apps exist as Django apps but are **not registered** in `INSTALLED_APPS`, and have no migrations beyond the initial empty ones.
+- All `apps.*` endpoints use `IsAuthenticatedOrReadOnly`: `GET` is public, writes require a JWT obtained from `/api/auth/token/`. See `docs/api.md` for the full endpoint reference.
+- `core` exists as a Django app but is **not registered** in `INSTALLED_APPS`, and has no migrations beyond the initial empty one.
 - DB is sqlite3 (`api/db.sqlite3`) via the default Django config — fine for development, but `docs/system-overview.md` anticipates Postgres/Firebase/Mongo for production.
 
 ## Frontend (`ui/`)
@@ -71,7 +72,7 @@ Planned structure (per `docs/architecture.md`), not yet built out:
 
 - `app/` — routes, layouts, pages (see planned page list above)
 - `components/` — reusable UI components
-- `lib/` — shared hooks, services, utilities, types
+- `lib/` — shared hooks, services, utilities, types, constants, config (e.g. API client, auth context, Cloudinary upload util, etc.)
 - `public/` — static assets
 
 ## Design references

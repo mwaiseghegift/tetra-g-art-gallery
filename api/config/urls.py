@@ -25,3 +25,7 @@ urlpatterns = [
     path('api/qr-codes/', include('apps.qr_codes.urls')),
     path('api/signatures/', include('apps.signatures.urls')),
 ]
+
+admin.site.site_header = "Tetra G Arts Admin"
+admin.site.site_title = "Tetra G Arts Admin Portal"
+admin.site.index_title = "Welcome to Tetra G Arts Admin Portal"
