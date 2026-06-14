@@ -10,6 +10,13 @@ import {
   QrIcon,
   ShieldCheckIcon,
 } from "@/components/ui/Icons";
+import {
+  InstagramIcon,
+  MailIcon,
+  PinterestIcon,
+  TiktokIcon,
+  YoutubeIcon,
+} from "@/components/ui/SocialIcons";
 import { getArtworks } from "@/lib/api/artworks";
 import { getCollections } from "@/lib/api/collections";
 import type { Artwork, Collection } from "@/lib/api/types";
@@ -20,18 +27,21 @@ const journalPosts = [
     title: "Why I believe African art belongs in digital museums",
     excerpt:
       "Exploring how QR-linked storytelling preserves meaning long after a piece leaves the studio.",
+    image: "/images/IMG_3886.jpg",
   },
   {
     date: "April 28, 2024",
     title: "Behind the brush: my creative process",
     excerpt:
       "From sketch to final piece — a look at how texture, colour and memory come together on canvas.",
+    image: "/images/IMG_3057.jpg",
   },
   {
     date: "April 15, 2024",
     title: "The power of storytelling through art",
     excerpt:
       "Every artwork carries a voice. Here's how I translate identity and heritage into visual language.",
+    image: "/images/IMG_1632.jpg",
   },
 ];
 
@@ -61,8 +71,10 @@ export default async function Home() {
 
   const featured = [...artworks]
     .sort((a, b) => b.views_count - a.views_count)
-    .slice(0, 4);
+    .slice(0, 3);
   const heroArtwork = featured[0] ?? artworks[0];
+  const heroSecondary = featured[1];
+  const heroTertiary = featured[2];
 
   return (
     <>
@@ -70,13 +82,33 @@ export default async function Home() {
       <section className="relative overflow-hidden border-b border-offwhite/10">
         <div className="absolute inset-0 bg-linear-to-br from-charcoal via-charcoal to-charcoal-soft" />
 
-        <div className="relative mx-auto grid max-w-7xl gap-16 px-6 py-24 lg:grid-cols-2 lg:items-center lg:px-12 lg:py-32">
+        {/* Decorative pattern strip */}
+        <div className="absolute inset-y-0 left-0 hidden w-4 bg-tribal-pattern opacity-50 lg:block" />
+
+        {/* Vertical social rail */}
+        <div className="absolute inset-y-0 right-0 z-10 hidden w-16 flex-col items-center justify-center gap-5 border-l border-offwhite/10 lg:flex">
+          {[InstagramIcon, PinterestIcon, YoutubeIcon, TiktokIcon, MailIcon].map(
+            (Icon, index) => (
+              <a
+                key={index}
+                href="#"
+                className="text-offwhite/60 transition-colors duration-300 hover:text-gold"
+              >
+                <Icon className="h-4 w-4" />
+              </a>
+            )
+          )}
+          <span className="h-16 w-px bg-offwhite/10" />
+        </div>
+
+        <div className="relative mx-auto grid max-w-7xl gap-16 px-6 py-24 lg:grid-cols-2 lg:items-center lg:px-12 lg:py-32 lg:pr-24">
           <div>
-            <p className="text-xs font-medium uppercase tracking-[0.3em] text-gold">
+            <p className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.3em] text-gold">
+              <span className="inline-block h-1.5 w-1.5 rotate-45 bg-gold" />
               African Stories. Global Soul.
             </p>
 
-            <h1 className="mt-6 max-w-2xl font-serif text-5xl leading-tight sm:text-6xl lg:text-7xl">
+            <h1 className="mt-6 max-w-xl font-serif text-5xl leading-[1.1] sm:text-6xl lg:text-6xl xl:text-7xl">
               Art That Lives Beyond{" "}
               <span className="italic text-gold">the Canvas.</span>
             </h1>
@@ -96,29 +128,72 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="relative mx-auto aspect-square w-full max-w-lg">
-            <div className="absolute inset-8 rounded-full bg-gold/10 blur-3xl" />
-            <div className="absolute inset-0 rounded-full border border-gold/20" />
+          <div className="relative mx-auto aspect-4/5 w-full max-w-md py-6 sm:max-w-lg">
+            {/* Ambient glow */}
+            <div className="absolute inset-0 bg-linear-to-br from-gold/25 via-terracotta/10 to-transparent blur-3xl" />
 
-            {heroArtwork?.image ? (
-              <img
-                src={heroArtwork.image}
-                alt={heroArtwork.title}
-                className="relative h-full w-full rounded-full object-cover shadow-2xl shadow-black/50"
-              />
-            ) : (
-              <div className="relative flex h-full w-full items-center justify-center rounded-full border border-gold/20 bg-charcoal-soft">
-                <span className="font-serif text-6xl italic text-gold/30">
-                  Tetra
-                </span>
-              </div>
-            )}
+            {/* Accent marks */}
+            <span className="absolute -top-2 right-6 h-3 w-3 rotate-45 bg-gold/70 sm:right-10" />
+            <span className="absolute bottom-10 -left-2 h-2 w-2 rotate-45 border border-gold/60" />
+            <span className="absolute left-1/2 top-2 h-px w-10 -translate-x-1/2 -rotate-6 bg-gold/40" />
 
-            {heroArtwork && (
-              <div className="absolute -bottom-4 left-1/2 w-max -translate-x-1/2 rounded-full border border-gold/30 bg-charcoal/80 px-5 py-2 text-xs uppercase tracking-[0.2em] text-gold backdrop-blur">
-                {heroArtwork.title}
-              </div>
-            )}
+            {/* Back layer — top right */}
+            <div className="absolute -top-2 right-0 z-0 h-3/5 w-3/5 rotate-6 overflow-hidden rounded-2xl border border-gold/20 shadow-xl sm:right-2">
+              {heroSecondary?.image ? (
+                <img
+                  src={heroSecondary.image}
+                  alt=""
+                  className="h-full w-full object-cover grayscale"
+                />
+              ) : (
+                <div className="h-full w-full bg-linear-to-br from-charcoal-soft to-charcoal" />
+              )}
+              <div className="absolute inset-0 bg-terracotta/60 mix-blend-color" />
+            </div>
+
+            {/* Back layer — bottom left */}
+            <div className="absolute -bottom-2 left-0 z-0 h-1/2 w-3/5 -rotate-6 overflow-hidden rounded-2xl border border-gold/20 shadow-xl sm:left-2">
+              {heroTertiary?.image ? (
+                <img
+                  src={heroTertiary.image}
+                  alt=""
+                  className="h-full w-full object-cover grayscale"
+                />
+              ) : (
+                <div className="h-full w-full bg-linear-to-br from-gold/15 to-charcoal" />
+              )}
+              <div className="absolute inset-0 bg-gold/50 mix-blend-color" />
+            </div>
+
+            {/* Front layer — main portrait */}
+            <div className="absolute inset-x-8 inset-y-10 z-10 -rotate-2 overflow-hidden rounded-2xl border border-gold/30 shadow-2xl shadow-black/50 sm:inset-x-12">
+              {heroArtwork?.image ? (
+                <>
+                  <img
+                    src={heroArtwork.image}
+                    alt={heroArtwork.title}
+                    className="h-full w-full object-cover grayscale"
+                  />
+                  <div className="absolute inset-0 bg-linear-to-br from-gold/70 via-terracotta/40 to-charcoal/70 mix-blend-color" />
+                  <div className="absolute inset-0 bg-linear-to-t from-charcoal/70 via-transparent to-transparent" />
+                </>
+              ) : (
+                <div className="flex h-full w-full items-center justify-center bg-charcoal-soft">
+                  <span className="font-serif text-6xl italic text-gold/30">
+                    Tetra
+                  </span>
+                </div>
+              )}
+
+              {heroArtwork && (
+                <div className="absolute inset-x-0 bottom-0 flex items-center gap-2 px-4 py-3">
+                  <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold" />
+                  <p className="text-xs uppercase tracking-[0.2em] text-offwhite">
+                    {heroArtwork.title}
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </section>
@@ -146,9 +221,9 @@ export default async function Home() {
             />
           </div>
         ) : (
-          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {featured.map((artwork) => (
-              <ArtworkCard key={artwork.id} artwork={artwork} />
+          <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {featured.map((artwork, index) => (
+              <ArtworkCard key={artwork.id} artwork={artwork} priority={index === 0} />
             ))}
           </div>
         )}
@@ -156,8 +231,8 @@ export default async function Home() {
 
       {/* Scan to Experience */}
       <section className="border-y border-offwhite/10 bg-offwhite text-charcoal">
-        <div className="mx-auto grid max-w-7xl gap-12 px-6 py-20 lg:grid-cols-3 lg:items-center lg:px-12">
-          <div>
+        <div className="mx-auto grid max-w-7xl gap-16 px-6 py-20 lg:grid-cols-12 lg:items-center lg:px-12">
+          <div className="lg:col-span-4">
             <SectionLabel className="text-terracotta">
               Scan to Experience
             </SectionLabel>
@@ -172,45 +247,51 @@ export default async function Home() {
             <Button
               href="/gallery"
               variant="primary"
-              className="mt-8 text-charcoal!"
+              className="mt-8 border-charcoal! bg-charcoal! text-offwhite! hover:bg-transparent! hover:text-charcoal!"
             >
-              Learn How QR Works
+              How It Works
               <ArrowRightIcon className="h-3.5 w-3.5" />
             </Button>
           </div>
 
-          <div className="flex items-center justify-center">
+          <div className="relative flex items-center justify-center py-8 lg:col-span-4">
             <div className="relative aspect-9/16 w-52 overflow-hidden rounded-4xl border-4 border-charcoal bg-charcoal shadow-2xl">
               {heroArtwork?.image ? (
                 <img
                   src={heroArtwork.image}
                   alt={heroArtwork.title}
-                  className="h-full w-full object-cover opacity-70"
+                  className="h-full w-full object-cover"
                 />
               ) : (
                 <div className="h-full w-full bg-linear-to-br from-charcoal-soft to-charcoal" />
               )}
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-charcoal/50 p-6 text-center">
-                <div className="rounded-xl bg-offwhite p-3">
-                  <QrIcon className="h-16 w-16 text-charcoal" />
+              <div className="absolute inset-0 bg-linear-to-t from-charcoal via-charcoal/10 to-transparent" />
+              {heroArtwork && (
+                <div className="absolute inset-x-0 bottom-0 p-4 text-center">
+                  <p className="text-xs uppercase tracking-[0.2em] text-offwhite">
+                    {heroArtwork.title}
+                  </p>
+                  <p className="mt-2 inline-flex items-center gap-1 rounded-full border border-gold/40 bg-charcoal/70 px-3 py-1 text-[0.6rem] font-medium uppercase tracking-[0.2em] text-gold backdrop-blur">
+                    <ShieldCheckIcon className="h-3 w-3" />
+                    Verified Original
+                  </p>
                 </div>
-                <p className="text-[0.65rem] font-medium uppercase tracking-[0.25em] text-gold">
-                  Verified Original
-                </p>
-              </div>
+              )}
+            </div>
+
+            <div className="absolute -right-2 bottom-10 flex h-24 w-24 rotate-6 items-center justify-center rounded-2xl border border-charcoal/10 bg-offwhite p-3 shadow-xl sm:right-4">
+              <QrIcon className="h-full w-full text-charcoal" />
             </div>
           </div>
 
-          <div className="grid gap-6">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-3 lg:col-span-4">
             {scanFeatures.map(({ Icon, title, text }) => (
-              <div key={title} className="flex gap-4">
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-charcoal/15 text-terracotta">
+              <div key={title} className="flex flex-col items-center text-center">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-charcoal/15 text-terracotta">
                   <Icon className="h-5 w-5" />
                 </span>
-                <div>
-                  <h3 className="font-serif text-lg text-charcoal">{title}</h3>
-                  <p className="mt-1 text-sm text-charcoal/60">{text}</p>
-                </div>
+                <h3 className="mt-3 font-serif text-lg text-charcoal">{title}</h3>
+                <p className="mt-1 text-sm text-charcoal/60">{text}</p>
               </div>
             ))}
           </div>
@@ -240,25 +321,31 @@ export default async function Home() {
             />
           </div>
         ) : (
-          <div className="mt-10 flex gap-6 overflow-x-auto pb-2">
+          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {collections.map((collection) => (
-              <CollectionCard key={collection.id} collection={collection} />
+              <CollectionCard
+                key={collection.id}
+                collection={collection}
+                variant="grid"
+              />
             ))}
           </div>
         )}
       </section>
 
       {/* From the Journal */}
-      <section className="border-t border-offwhite/10 bg-charcoal-soft">
+      <section className="border-t border-offwhite/10 bg-offwhite text-charcoal">
         <div className="mx-auto max-w-7xl px-6 py-20 lg:px-12">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <SectionLabel>From the Journal</SectionLabel>
+              <SectionLabel className="text-terracotta">
+                From the Journal
+              </SectionLabel>
               <h2 className="mt-3 font-serif text-3xl sm:text-4xl">
                 Stories &amp; Reflections
               </h2>
             </div>
-            <Button href="/journal" variant="outline" className="text-xs">
+            <Button href="/journal" variant="outline" className="border-charcoal/20! text-charcoal! text-xs hover:border-terracotta! hover:text-terracotta!">
               View All Posts
               <ArrowRightIcon className="h-3.5 w-3.5" />
             </Button>
@@ -268,19 +355,27 @@ export default async function Home() {
             {journalPosts.map((post) => (
               <article
                 key={post.title}
-                className="flex flex-col gap-3 rounded-2xl border border-offwhite/10 bg-charcoal p-6 transition-colors duration-300 hover:border-gold/30"
+                className="group flex flex-col gap-4 rounded-2xl border border-charcoal/10 bg-white/40 p-4 transition-colors duration-300 hover:border-terracotta/30"
               >
-                <p className="text-xs uppercase tracking-[0.2em] text-sand">
-                  {post.date}
-                </p>
-                <h3 className="font-serif text-xl leading-snug text-offwhite">
-                  {post.title}
-                </h3>
-                <p className="text-sm text-offwhite/60">{post.excerpt}</p>
-                <span className="mt-2 inline-flex items-center gap-1 text-xs font-medium uppercase tracking-[0.2em] text-gold">
-                  Read More
-                  <ArrowRightIcon className="h-3 w-3" />
-                </span>
+                <div className="aspect-4/3 overflow-hidden rounded-xl">
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                </div>
+                <div className="flex flex-col gap-2 px-1">
+                  <p className="text-xs uppercase tracking-[0.2em] text-terracotta">
+                    {post.date}
+                  </p>
+                  <h3 className="font-serif text-xl leading-snug text-charcoal">
+                    {post.title}
+                  </h3>
+                  <span className="mt-1 inline-flex items-center gap-1 text-xs font-medium uppercase tracking-[0.2em] text-terracotta">
+                    Read More
+                    <ArrowRightIcon className="h-3 w-3" />
+                  </span>
+                </div>
               </article>
             ))}
           </div>
@@ -288,33 +383,42 @@ export default async function Home() {
       </section>
 
       {/* CTA */}
-      <section className="relative overflow-hidden bg-linear-to-br from-gold to-terracotta text-charcoal">
-        <div className="mx-auto flex max-w-7xl flex-col gap-8 px-6 py-16 lg:flex-row lg:items-center lg:justify-between lg:px-12">
+      <section className="relative overflow-hidden bg-terracotta text-offwhite">
+        <div className="mx-auto grid max-w-7xl gap-8 px-6 py-16 lg:grid-cols-2 lg:items-center lg:px-12">
           <div>
             <h2 className="font-serif text-4xl leading-tight sm:text-5xl">
               Let&apos;s Create Something{" "}
-              <span className="italic">Meaningful.</span>
+              <span className="italic text-gold">Meaningful.</span>
             </h2>
-            <p className="mt-3 max-w-md text-charcoal/80">
+            <p className="mt-3 max-w-md text-offwhite/80">
               Interested in owning a piece like this, or creating something
               unique together? Let&apos;s bring your vision to life.
             </p>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <Button
+                href="/contact"
+                variant="primary"
+                className="border-charcoal! bg-charcoal! text-offwhite! hover:bg-transparent! hover:border-offwhite! hover:text-offwhite!"
+              >
+                Commission Art
+              </Button>
+              <Button
+                href="/contact"
+                variant="outline"
+                className="border-offwhite/40! text-offwhite! hover:border-charcoal! hover:bg-charcoal! hover:text-offwhite!"
+              >
+                Contact Me
+              </Button>
+            </div>
           </div>
-          <div className="flex flex-wrap gap-4">
-            <Button
-              href="/contact"
-              variant="primary"
-              className="border-charcoal! bg-charcoal! text-offwhite! hover:bg-transparent! hover:text-charcoal!"
-            >
-              Commission Art
-            </Button>
-            <Button
-              href="/contact"
-              variant="outline"
-              className="border-charcoal! text-charcoal! hover:bg-charcoal! hover:text-offwhite!"
-            >
-              Contact Me
-            </Button>
+
+          <div className="relative hidden aspect-16/10 overflow-hidden rounded-2xl lg:block">
+            <img
+              src="/images/IMG_5848.jpg"
+              alt="Tetra artworks on display"
+              className="h-full w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-terracotta/20" />
           </div>
         </div>
       </section>

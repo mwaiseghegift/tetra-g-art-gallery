@@ -146,7 +146,7 @@ export default function GalleryExplorer({
         </div>
       ) : (
         <>
-          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {visible.map((artwork) => (
               <ArtworkCard key={artwork.id} artwork={artwork} />
             ))}

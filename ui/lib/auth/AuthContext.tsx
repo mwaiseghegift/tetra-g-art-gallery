@@ -9,6 +9,7 @@ import {
   type ReactNode,
 } from "react";
 import { getCurrentUser, obtainTokens, refreshToken as refreshTokenRequest } from "@/lib/api/auth";
+import { setAuthInterceptor, clearAuthInterceptor } from "@/lib/api/interceptor";
 import type { User } from "@/lib/api/types";
 
 const ACCESS_TOKEN_KEY = "tetra_access_token";
@@ -29,6 +30,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Setup interceptor for token expiration
+  const setupInterceptor = useCallback((access: string, refresh: string) => {
+    setAuthInterceptor(
+      () => {
+        // Logout callback
+        localStorage.removeItem(ACCESS_TOKEN_KEY);
+        localStorage.removeItem(REFRESH_TOKEN_KEY);
+        setAccessToken(null);
+        setUser(null);
+        clearAuthInterceptor();
+      },
+      refreshTokenRequest,
+      refresh
+    );
+  }, []);
+
   useEffect(() => {
     async function restoreSession() {
       const storedAccess = localStorage.getItem(ACCESS_TOKEN_KEY);
@@ -42,6 +59,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const currentUser = await getCurrentUser(storedAccess);
         setAccessToken(storedAccess);
         setUser(currentUser);
+        if (storedRefresh) {
+          setupInterceptor(storedAccess, storedRefresh);
+        }
       } catch {
         if (!storedRefresh) {
           return;
@@ -52,15 +72,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           localStorage.setItem(ACCESS_TOKEN_KEY, access);
           setAccessToken(access);
           setUser(currentUser);
+          setupInterceptor(access, storedRefresh);
         } catch {
           localStorage.removeItem(ACCESS_TOKEN_KEY);
           localStorage.removeItem(REFRESH_TOKEN_KEY);
+          clearAuthInterceptor();
         }
       }
     }
 
     restoreSession().finally(() => setIsLoading(false));
-  }, []);
+  }, [setupInterceptor]);
 
   const login = useCallback(async (username: string, password: string) => {
     const tokens = await obtainTokens(username, password);
@@ -69,14 +91,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.setItem(REFRESH_TOKEN_KEY, tokens.refresh);
     setAccessToken(tokens.access);
     setUser(currentUser);
+    setupInterceptor(tokens.access, tokens.refresh);
     return currentUser;
-  }, []);
+  }, [setupInterceptor]);
 
   const logout = useCallback(() => {
     localStorage.removeItem(ACCESS_TOKEN_KEY);
     localStorage.removeItem(REFRESH_TOKEN_KEY);
     setAccessToken(null);
     setUser(null);
+    clearAuthInterceptor();
   }, []);
 
   return (

@@ -1,4 +1,5 @@
 import { API_BASE_URL } from "@/lib/config";
+import { handleTokenExpiration } from "./interceptor";
 
 export class ApiError extends Error {
   status: number;
@@ -51,6 +52,11 @@ export async function apiFetch<T>(
   const data = await response.json().catch(() => undefined);
 
   if (!response.ok) {
+    // Handle token expiration (401 Unauthorized)
+    if (response.status === 401 && token) {
+      // Token expired - handle expiration
+      await handleTokenExpiration();
+    }
     throw new ApiError(extractErrorMessage(data, response.statusText), response.status, data);
   }
 

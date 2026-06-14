@@ -27,14 +27,21 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
   return (
     <>
       {/* Header */}
-      <section className="border-b border-offwhite/10">
-        <div className="mx-auto max-w-7xl px-6 py-20 text-center lg:px-12">
+      <section className="relative overflow-hidden border-b border-offwhite/10">
+        <div className="absolute inset-0 bg-linear-to-b from-charcoal via-charcoal to-charcoal-soft" />
+        <div className="absolute left-1/2 top-0 h-px w-2/3 -translate-x-1/2 bg-linear-to-r from-transparent via-gold/40 to-transparent" />
+        <div className="absolute -top-32 left-1/2 h-64 w-160 -translate-x-1/2 rounded-full bg-gold/10 blur-3xl" />
+        <div className="absolute inset-y-0 left-0 hidden w-4 bg-tribal-pattern opacity-40 lg:block" />
+        <div className="absolute inset-y-0 right-0 hidden w-4 bg-tribal-pattern opacity-40 lg:block" />
+
+        <div className="relative mx-auto max-w-7xl px-6 py-24 text-center lg:px-12 lg:py-28">
           <SectionLabel align="center">Gallery</SectionLabel>
           <h1 className="mt-4 font-serif text-5xl sm:text-6xl">
             The Gallery of Tetra
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-sand italic">
-            Each piece is a fragment of identity, memory, and emotion.
+            Each piece is a fragment of identity, memory, and emotion —
+            step inside and look closer.
           </p>
         </div>
       </section>

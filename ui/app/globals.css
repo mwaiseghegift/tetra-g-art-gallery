@@ -37,4 +37,11 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+
+  .bg-tribal-pattern {
+    background-image:
+      repeating-linear-gradient(45deg, var(--color-gold) 0, var(--color-gold) 2px, transparent 2px, transparent 14px),
+      repeating-linear-gradient(-45deg, var(--color-terracotta) 0, var(--color-terracotta) 2px, transparent 2px, transparent 14px);
+    background-color: var(--color-charcoal-soft);
+  }
 }

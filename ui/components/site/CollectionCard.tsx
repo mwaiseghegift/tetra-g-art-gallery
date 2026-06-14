@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Collection } from "@/lib/api/types";
-import { ArrowRightIcon } from "@/components/ui/Icons";
+import { ArrowRightIcon, FrameIcon } from "@/components/ui/Icons";
 
 type CollectionCardProps = {
   collection: Collection;
@@ -17,7 +17,7 @@ export default function CollectionCard({
       className={`group relative block overflow-hidden rounded-2xl border border-offwhite/10 ${
         variant === "strip"
           ? "aspect-4/5 shrink-0 basis-64 sm:basis-72"
-          : "aspect-4/3"
+          : "aspect-4/5 sm:aspect-square"
       }`}
     >
       {collection.cover_image ? (
@@ -36,9 +36,13 @@ export default function CollectionCard({
 
       <div className="absolute inset-0 bg-linear-to-t from-charcoal via-charcoal/30 to-transparent" />
 
-      <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-2 p-5">
+      <span className="absolute left-4 top-4 flex h-9 w-9 items-center justify-center rounded-lg border border-gold/40 bg-charcoal/70 text-gold backdrop-blur-sm">
+        <FrameIcon className="h-4 w-4" />
+      </span>
+
+      <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-2 p-6 sm:p-8">
         <div>
-          <h3 className="font-serif text-xl text-offwhite sm:text-2xl">{collection.name}</h3>
+          <h3 className="font-serif text-2xl text-offwhite sm:text-3xl">{collection.name}</h3>
           {variant === "grid" && collection.description && (
             <p className="mt-2 max-w-sm text-sm text-offwhite/60 line-clamp-2">
               {collection.description}
@@ -48,7 +52,7 @@ export default function CollectionCard({
             {collection.artworks_count} {collection.artworks_count === 1 ? "Work" : "Works"}
           </p>
         </div>
-        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-gold/40 text-gold transition-colors duration-300 group-hover:bg-gold group-hover:text-charcoal">
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-gold/40 text-gold transition-colors duration-300 group-hover:bg-gold group-hover:text-charcoal">
           <ArrowRightIcon className="h-4 w-4" />
         </span>
       </div>
