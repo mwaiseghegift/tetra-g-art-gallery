@@ -49,8 +49,8 @@ Structure (per `docs/architecture.md`):
 Current state / gotchas:
 
 - `DEBUG = True` and `SECRET_KEY` is the auto-generated dev key — both must change before any deployment.
-- All `apps.*` endpoints use `IsAuthenticatedOrReadOnly`: `GET` is public, writes require a JWT obtained from `/api/auth/token/`. See `docs/api.md` for the full endpoint reference.
-- `core` exists as a Django app but is **not registered** in `INSTALLED_APPS`, and has no migrations beyond the initial empty one.
+- All `apps.*` endpoints use `IsAdminOrReadOnly` (`core/permissions.py`): `GET` is public, writes require a JWT (from `/api/auth/token/`) for a staff user (`is_staff=True`). Regular registered users can only manage their own profile via `/api/auth/me/`. See `docs/api.md` for the full endpoint reference.
+- `core` exists as a Django app (providing `core/permissions.py`) but is **not registered** in `INSTALLED_APPS`, and has no migrations beyond the initial empty one.
 - DB is sqlite3 (`api/db.sqlite3`) via the default Django config — fine for development, but `docs/system-overview.md` anticipates Postgres/Firebase/Mongo for production.
 
 ## Frontend (`ui/`)

@@ -84,10 +84,10 @@ Returns/updates `{ id, username, email, first_name, last_name }` for the authent
 
 ## Authorization model
 
-All endpoints below use `IsAuthenticatedOrReadOnly`:
+All endpoints below use `IsAdminOrReadOnly`:
 
 - **`GET`** requests are public (no auth required) — used by the public gallery, artwork detail pages, and QR scans.
-- **`POST` / `PUT` / `PATCH` / `DELETE`** require a valid `Authorization: Bearer <access_token>` header — used by the admin/artist dashboard.
+- **`POST` / `PUT` / `PATCH` / `DELETE`** require a valid `Authorization: Bearer <access_token>` header **for a staff user** (`is_staff=True`) — used by the admin/artist dashboard. Regular registered users (e.g. via `/api/auth/register/`) can authenticate and manage their own profile via `/api/auth/me/`, but cannot create/edit/delete gallery content.
 
 ---
 
@@ -96,10 +96,10 @@ All endpoints below use `IsAuthenticatedOrReadOnly`:
 | Method | Endpoint | Auth | Description |
 |---|---|---|---|
 | GET | `/api/artworks/` | none | List all artworks |
-| POST | `/api/artworks/` | required | Create an artwork |
+| POST | `/api/artworks/` | staff | Create an artwork |
 | GET | `/api/artworks/<artwork_id>/` | none | Retrieve a single artwork |
-| PUT/PATCH | `/api/artworks/<artwork_id>/` | required | Update an artwork |
-| DELETE | `/api/artworks/<artwork_id>/` | required | Delete an artwork |
+| PUT/PATCH | `/api/artworks/<artwork_id>/` | staff | Update an artwork |
+| DELETE | `/api/artworks/<artwork_id>/` | staff | Delete an artwork |
 
 `<artwork_id>` is the human-readable identifier (e.g. `ART-2024-001`), auto-generated from `year` on create.
 
@@ -155,10 +155,10 @@ Content-Type: application/json
 | Method | Endpoint | Auth | Description |
 |---|---|---|---|
 | GET | `/api/collections/` | none | List all collections |
-| POST | `/api/collections/` | required | Create a collection |
+| POST | `/api/collections/` | staff | Create a collection |
 | GET | `/api/collections/<slug>/` | none | Retrieve a single collection |
-| PUT/PATCH | `/api/collections/<slug>/` | required | Update a collection |
-| DELETE | `/api/collections/<slug>/` | required | Delete a collection |
+| PUT/PATCH | `/api/collections/<slug>/` | staff | Update a collection |
+| DELETE | `/api/collections/<slug>/` | staff | Delete a collection |
 | GET | `/api/collections/<slug>/artworks/` | none | List artworks belonging to this collection |
 
 ### Collection object
@@ -181,9 +181,9 @@ Content-Type: application/json
 | Method | Endpoint | Auth | Description |
 |---|---|---|---|
 | GET | `/api/qr-codes/` | none | List all QR codes |
-| POST | `/api/qr-codes/` | required | Generate a QR code for an artwork |
+| POST | `/api/qr-codes/` | staff | Generate a QR code for an artwork |
 | GET | `/api/qr-codes/<unique_id>/` | none | Resolve a scanned QR code — increments `scans_count` and returns the linked artwork |
-| DELETE | `/api/qr-codes/<unique_id>/` | required | Delete a QR code |
+| DELETE | `/api/qr-codes/<unique_id>/` | staff | Delete a QR code |
 
 `<unique_id>` is the QR code's UUID — this is the value encoded into the physical/printed QR image and is what the QR landing page resolves on scan.
 
@@ -215,10 +215,10 @@ Content-Type: application/json
 | Method | Endpoint | Auth | Description |
 |---|---|---|---|
 | GET | `/api/signatures/` | none | List all signatures |
-| POST | `/api/signatures/` | required | Create a signature/verification record for an artwork |
+| POST | `/api/signatures/` | staff | Create a signature/verification record for an artwork |
 | GET | `/api/signatures/<unique_id>/` | none | Retrieve a signature |
-| PUT/PATCH | `/api/signatures/<unique_id>/` | required | Update a signature |
-| DELETE | `/api/signatures/<unique_id>/` | required | Delete a signature |
+| PUT/PATCH | `/api/signatures/<unique_id>/` | staff | Update a signature |
+| DELETE | `/api/signatures/<unique_id>/` | staff | Delete a signature |
 
 ### Signature object
 
