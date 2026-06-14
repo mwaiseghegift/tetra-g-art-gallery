@@ -44,7 +44,8 @@ Response `201`:
   "username": "artist",
   "email": "artist@tetra.art",
   "first_name": "",
-  "last_name": ""
+  "last_name": "",
+  "is_staff": false
 }
 ```
 
@@ -78,7 +79,7 @@ Response `200`:
 
 ### GET/PATCH /api/auth/me/
 
-Returns/updates `{ id, username, email, first_name, last_name }` for the authenticated user.
+Returns/updates `{ id, username, email, first_name, last_name, is_staff }` for the authenticated user. `is_staff` is read-only — staff status is granted via the Django admin and determines access to write endpoints (see [Authorization model](#authorization-model)).
 
 ---
 
