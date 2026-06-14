@@ -16,6 +16,7 @@ export interface Artwork {
   creation_time: string;
   availability: Availability;
   image: string;
+  video: string;
   is_verified: boolean;
   views_count: number;
   likes_count: number;
@@ -37,6 +38,7 @@ export type ArtworkInput = Partial<
     | "creation_time"
     | "availability"
     | "image"
+    | "video"
     | "is_verified"
   >
 >;

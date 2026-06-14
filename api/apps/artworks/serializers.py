@@ -31,6 +31,7 @@ class ArtworkSerializer(serializers.ModelSerializer):
             'creation_time',
             'availability',
             'image',
+            'video',
             'is_verified',
             'views_count',
             'likes_count',

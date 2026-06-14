@@ -32,6 +32,7 @@ class Artwork(models.Model):
         max_length=20, choices=Availability.choices, default=Availability.AVAILABLE
     )
     image = models.URLField(blank=True)
+    video = models.URLField(blank=True)
     is_verified = models.BooleanField(default=False)
     views_count = models.PositiveIntegerField(default=0)
     likes_count = models.PositiveIntegerField(default=0)

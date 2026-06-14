@@ -122,6 +122,7 @@ All endpoints below use `IsAuthenticatedOrReadOnly`:
 | `creation_time` | string | e.g. "3 Weeks" |
 | `availability` | enum | `available`, `sold`, `not_for_sale` |
 | `image` | url | |
+| `video` | url | optional video walkthrough/process clip |
 | `is_verified` | bool | |
 | `views_count` | int | read-only |
 | `likes_count` | int | read-only |
