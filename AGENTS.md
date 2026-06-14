@@ -44,14 +44,15 @@ Structure (per `docs/architecture.md`):
 - `accounts/` — JWT authentication and user account endpoints (registration, login/token, `/me`)
 - `apps/` — domain modules: `artworks`, `collections`, `qr_codes`, `signatures` are implemented; `analytics` is still planned (mapping to the modules in `docs/system-overview.md` section 6)
 - `config/` — project settings (`settings.py`), URL routing (`urls.py`), WSGI/ASGI entry points
-- `core/` — shared models/services/utilities/constants across apps (currently empty skeleton, not registered)
+- `core/` — shared models/services/utilities/constants across apps; registered in `INSTALLED_APPS`, provides `permissions.py` (`IsAdminOrReadOnly`) and the Cloudinary upload-signature endpoint (`views.py`/`urls.py`)
 
 Current state / gotchas:
 
-- `DEBUG = True` and `SECRET_KEY` is the auto-generated dev key — both must change before any deployment.
+- `DEBUG` defaults to `True` and `SECRET_KEY` defaults to the auto-generated dev key — both must be overridden via `api/.env` before any deployment (see `api/.env.example`); `settings.py` reads `SECRET_KEY`, `DEBUG`, and `ALLOWED_HOSTS` via `python-decouple`.
 - All `apps.*` endpoints use `IsAdminOrReadOnly` (`core/permissions.py`): `GET` is public, writes require a JWT (from `/api/auth/token/`) for a staff user (`is_staff=True`). Regular registered users can only manage their own profile via `/api/auth/me/`. See `docs/api.md` for the full endpoint reference.
-- `core` exists as a Django app (providing `core/permissions.py`) but is **not registered** in `INSTALLED_APPS`, and has no migrations beyond the initial empty one.
+- `core` is registered in `INSTALLED_APPS` and has no migrations beyond the initial empty one.
 - DB is sqlite3 (`api/db.sqlite3`) via the default Django config — fine for development, but `docs/system-overview.md` anticipates Postgres/Firebase/Mongo for production.
+- Media uploads (artwork `image`/`video`) use a hybrid Cloudinary flow: the dashboard can either paste a direct URL, or upload a file, which the frontend sends straight to Cloudinary using a signature obtained from the staff-only `POST /api/uploads/signature/` endpoint (see `docs/api.md`). Configure `CLOUDINARY_CLOUD_NAME` / `CLOUDINARY_API_KEY` / `CLOUDINARY_API_SECRET` / `CLOUDINARY_FOLDER` in `api/.env` (see `api/.env.example`); `settings.py` reads these via `python-decouple`.
 
 ## Frontend (`ui/`)
 

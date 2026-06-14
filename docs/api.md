@@ -211,6 +211,44 @@ Content-Type: application/json
 
 ---
 
+## Uploads
+
+| Method | Endpoint | Auth | Description |
+|---|---|---|---|
+| POST | `/api/uploads/signature/` | staff | Get a signed Cloudinary upload signature |
+
+Used by the dashboard to upload images/videos directly to Cloudinary from the browser (signed direct upload). The returned values are passed as form fields alongside the file to `https://api.cloudinary.com/v1_1/<cloud_name>/auto/upload`; the resulting `secure_url` is then saved as the artwork's `image`/`video` value (the same fields also accept a pasted direct link).
+
+### POST /api/uploads/signature/
+
+Request body:
+
+```json
+{ "folder": "tetra-art/artworks" }
+```
+
+`folder` is optional (defaults to `tetra-art`).
+
+Response `200`:
+
+```json
+{
+  "signature": "<signed-hash>",
+  "timestamp": 1718000000,
+  "api_key": "<cloudinary-api-key>",
+  "cloud_name": "<cloudinary-cloud-name>",
+  "folder": "tetra-art/artworks"
+}
+```
+
+Response `503` if Cloudinary credentials are not configured on the server:
+
+```json
+{ "detail": "Cloudinary is not configured on this server." }
+```
+
+---
+
 ## Signatures
 
 | Method | Endpoint | Auth | Description |

@@ -99,3 +99,11 @@ export interface RegisterInput {
   first_name?: string;
   last_name?: string;
 }
+
+export interface UploadSignature {
+  signature: string;
+  timestamp: number;
+  api_key: string;
+  cloud_name: string;
+  folder: string;
+}

@@ -5,3 +5,4 @@ export * as collectionsApi from "./collections";
 export * as qrCodesApi from "./qrCodes";
 export * as signaturesApi from "./signatures";
 export * as authApi from "./auth";
+export * as uploadsApi from "./uploads";

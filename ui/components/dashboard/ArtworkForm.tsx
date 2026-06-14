@@ -4,6 +4,7 @@ import { useEffect, useState, type FormEvent } from "react";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import Input from "@/components/ui/Input";
+import MediaInput from "@/components/dashboard/MediaInput";
 import Select from "@/components/ui/Select";
 import Textarea from "@/components/ui/Textarea";
 import { getCollections } from "@/lib/api/collections";
@@ -159,19 +160,17 @@ export default function ArtworkForm({ initialValues, onSubmit, submitLabel }: Ar
       </Card>
 
       <Card className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <Input
-          id="image"
-          label="Image URL"
-          placeholder="https://…"
+        <MediaInput
+          label="Image"
+          mediaType="image"
           value={form.image ?? ""}
-          onChange={(e) => update("image", e.target.value)}
+          onChange={(url) => update("image", url)}
         />
-        <Input
-          id="video"
-          label="Video URL"
-          placeholder="https://…"
+        <MediaInput
+          label="Video"
+          mediaType="video"
           value={form.video ?? ""}
-          onChange={(e) => update("video", e.target.value)}
+          onChange={(url) => update("video", url)}
         />
       </Card>
 

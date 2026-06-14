@@ -22,4 +22,7 @@ export const API_ENDPOINTS = {
     refresh: "/auth/token/refresh/",
     me: "/auth/me/",
   },
+  uploads: {
+    signature: "/uploads/signature/",
+  },
 } as const;
