@@ -1,4 +1,4 @@
-# System Overview: Digital Art Portfolio, Authentication & QR-Linked Storytelling Platform
+# System Overview: Tetra-G Digital Art Portfolio, Authentication & QR-Linked Storytelling Platform
 
 ## 1. Introduction
 

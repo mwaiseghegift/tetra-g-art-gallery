@@ -1,26 +1,40 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Tetra Art Gallery palette */
+  --color-charcoal: #0b0b0b;
+  --color-charcoal-soft: #141414;
+  --color-offwhite: #f5f1ea;
+  --color-sand: #d6b98c;
+  --color-gold: #c8a24a;
+  --color-terracotta: #c65a3a;
+
+  --background: var(--color-charcoal);
+  --foreground: var(--color-offwhite);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-charcoal: var(--color-charcoal);
+  --color-charcoal-soft: var(--color-charcoal-soft);
+  --color-offwhite: var(--color-offwhite);
+  --color-sand: var(--color-sand);
+  --color-gold: var(--color-gold);
+  --color-terracotta: var(--color-terracotta);
+
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-playfair);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
 }
