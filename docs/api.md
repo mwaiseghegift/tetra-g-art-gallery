@@ -112,13 +112,18 @@ All endpoints below use `IsAdminOrReadOnly`:
 | `unique_id` | uuid | read-only, auto-generated |
 | `artwork_id` | string | read-only, auto-generated (`ART-<year>-<seq>`) |
 | `title` | string | |
+| `subtitle` | string | short tagline, e.g. "A Sculptural Portrait in Denim Zippers & Brass" |
 | `slug` | string | read-only, derived from `title` |
 | `medium` | string | e.g. "Acrylic on Canvas" |
 | `year` | int | |
 | `dimensions` | string | e.g. "120cm x 90cm" |
+| `edition` | string | e.g. "Original Work · One of One" |
+| `materials` | string | fuller materials breakdown, e.g. "Denim zippers on board, Mvule wood frame, Polished brass Coat of Arms" |
+| `framing` | string | frame/finish description |
 | `collection` | string \| null | `Collection.slug`, write by slug |
 | `description` | string | |
 | `story` | string | "story behind the piece" |
+| `artist_statement` | string | artist's pull-quote |
 | `origin` | string | e.g. "Kenya" |
 | `creation_time` | string | e.g. "3 Weeks" |
 | `availability` | enum | `available`, `sold`, `not_for_sale` |
@@ -127,7 +132,40 @@ All endpoints below use `IsAdminOrReadOnly`:
 | `is_verified` | bool | |
 | `views_count` | int | read-only |
 | `likes_count` | int | read-only |
+| `sections` | array | ordered long-form story sections, see below |
+| `symbolism_entries` | array | ordered colour/symbolism breakdown, see below |
+| `gallery_images` | array | ordered additional detail/gallery photos, see below |
 | `created_at` / `updated_at` | datetime | read-only |
+
+### Artwork section object (`sections`)
+
+| Field | Type | Notes |
+|---|---|---|
+| `id` | int | read-only |
+| `heading` | string | e.g. "THE MEDIUM" |
+| `body` | string | section text |
+| `order` | int | display order |
+
+### Artwork symbolism entry object (`symbolism_entries`)
+
+| Field | Type | Notes |
+|---|---|---|
+| `id` | int | read-only |
+| `label` | string | e.g. "Solar Yellow" |
+| `meaning` | string | e.g. "Energy, optimism, forward momentum" |
+| `swatch` | string | optional hex colour, e.g. "#F4C430" |
+| `order` | int | display order |
+
+### Artwork gallery image object (`gallery_images`)
+
+| Field | Type | Notes |
+|---|---|---|
+| `id` | int | read-only |
+| `image` | url | |
+| `caption` | string | e.g. "Detail · Polished brass Coat of Arms on mvule frame" |
+| `order` | int | display order |
+
+`sections`, `symbolism_entries`, and `gallery_images` are fully replaced on each `PUT`/`PATCH`/`POST` that includes them — omit the field to leave the existing items unchanged.
 
 ### Example: create an artwork
 
@@ -138,14 +176,29 @@ Content-Type: application/json
 
 {
   "title": "Roots Within",
+  "subtitle": "A Journey Into Identity",
   "medium": "Acrylic on Canvas",
   "year": 2024,
   "dimensions": "120cm x 90cm",
+  "edition": "Original Work · One of One",
+  "materials": "Acrylic, canvas, mixed media",
+  "framing": "Natural oak frame",
   "collection": "identity-memory",
   "description": "A journey into identity.",
   "story": "Created during a season of reflection.",
+  "artist_statement": "This work is about coming home to yourself.",
   "origin": "Kenya",
-  "creation_time": "3 Weeks"
+  "creation_time": "3 Weeks",
+  "sections": [
+    { "heading": "THE MEDIUM", "body": "...", "order": 1 },
+    { "heading": "COMPOSITION & FORM", "body": "...", "order": 2 }
+  ],
+  "symbolism_entries": [
+    { "label": "Solar Yellow", "meaning": "Energy, optimism, forward momentum", "swatch": "#F4C430", "order": 1 }
+  ],
+  "gallery_images": [
+    { "image": "https://...", "caption": "Detail · close-up of texture", "order": 1 }
+  ]
 }
 ```
 

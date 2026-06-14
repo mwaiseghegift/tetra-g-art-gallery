@@ -94,6 +94,15 @@ export default async function ArtworkDetailPage({ params }: ArtworkPageProps) {
       value: availabilityLabels[artwork.availability],
       Icon: ShieldCheckIcon,
     },
+    ...(artwork.edition
+      ? [{ label: "Edition", value: artwork.edition, Icon: LayersIcon }]
+      : []),
+    ...(artwork.materials
+      ? [{ label: "Materials", value: artwork.materials, Icon: DropletIcon }]
+      : []),
+    ...(artwork.framing
+      ? [{ label: "Framing", value: artwork.framing, Icon: FrameIcon }]
+      : []),
   ];
 
   return (
@@ -118,6 +127,11 @@ export default async function ArtworkDetailPage({ params }: ArtworkPageProps) {
               <h1 className="mt-3 font-serif text-5xl leading-tight sm:text-6xl">
                 {artwork.title}
               </h1>
+              {artwork.subtitle && (
+                <p className="mt-2 text-sm uppercase tracking-[0.2em] text-offwhite/50">
+                  {artwork.subtitle}
+                </p>
+              )}
               <p className="mt-2 font-serif text-lg italic text-sand">
                 By <span className="text-gold">Tetra</span>
               </p>
@@ -197,6 +211,89 @@ export default async function ArtworkDetailPage({ params }: ArtworkPageProps) {
           </div>
         </div>
       </section>
+
+      {/* Story sections (e.g. THE MEDIUM, COMPOSITION & FORM, THE FRAME) */}
+      {artwork.sections.length > 0 && (
+        <section className="border-t border-offwhite/10 bg-charcoal-soft">
+          <div className="mx-auto max-w-4xl space-y-12 px-6 py-20 lg:px-12">
+            {artwork.sections.map((section) => (
+              <div key={section.id}>
+                <SectionLabel>{section.heading}</SectionLabel>
+                <div className="mt-4 space-y-4 text-sm leading-relaxed text-offwhite/70">
+                  {section.body
+                    .split(/\n+/)
+                    .filter(Boolean)
+                    .map((paragraph, index) => (
+                      <p key={index}>{paragraph}</p>
+                    ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Colour & symbolism */}
+      {artwork.symbolism_entries.length > 0 && (
+        <section className="mx-auto max-w-7xl px-6 py-20 lg:px-12">
+          <SectionLabel>Colour &amp; Symbolism</SectionLabel>
+          <h2 className="mt-4 font-serif text-3xl sm:text-4xl">
+            Every Shade Carries Intention
+          </h2>
+          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {artwork.symbolism_entries.map((entry) => (
+              <div
+                key={entry.id}
+                className="flex items-start gap-4 rounded-2xl border border-offwhite/10 bg-charcoal-soft p-5"
+              >
+                <span
+                  className="mt-1 h-8 w-8 shrink-0 rounded-full border border-offwhite/20"
+                  style={{ backgroundColor: entry.swatch || undefined }}
+                />
+                <div>
+                  <p className="text-xs uppercase tracking-[0.2em] text-gold">{entry.label}</p>
+                  <p className="mt-1 text-sm leading-relaxed text-offwhite/70">{entry.meaning}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Detail gallery */}
+      {artwork.gallery_images.length > 0 && (
+        <section className="border-t border-offwhite/10 bg-charcoal-soft">
+          <div className="mx-auto max-w-7xl px-6 py-20 lg:px-12">
+            <SectionLabel>A Closer Look</SectionLabel>
+            <h2 className="mt-4 font-serif text-3xl sm:text-4xl">Detail Gallery</h2>
+            <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {artwork.gallery_images.map((item) => (
+                <figure key={item.id} className="overflow-hidden rounded-2xl border border-offwhite/10">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={item.image} alt={item.caption} className="h-64 w-full object-cover" />
+                  {item.caption && (
+                    <figcaption className="px-4 py-3 text-xs text-offwhite/60">
+                      {item.caption}
+                    </figcaption>
+                  )}
+                </figure>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Artist's statement */}
+      {artwork.artist_statement && (
+        <section className="mx-auto max-w-4xl px-6 py-20 text-center lg:px-12">
+          <p className="font-serif text-2xl italic leading-relaxed text-offwhite sm:text-3xl">
+            &ldquo;{artwork.artist_statement}&rdquo;
+          </p>
+          <p className="mt-6 text-xs uppercase tracking-[0.3em] text-gold">
+            Artist&apos;s Statement · Tetra G Arts
+          </p>
+        </section>
+      )}
 
       {/* Verification + QR experience */}
       <section className="border-y border-offwhite/10 bg-charcoal-soft">

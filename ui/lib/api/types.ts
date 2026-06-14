@@ -1,17 +1,44 @@
 export type Availability = "available" | "sold" | "not_for_sale";
 
+export interface ArtworkSection {
+  id: number;
+  heading: string;
+  body: string;
+  order: number;
+}
+
+export interface ArtworkSymbolismEntry {
+  id: number;
+  label: string;
+  meaning: string;
+  swatch: string;
+  order: number;
+}
+
+export interface ArtworkGalleryImage {
+  id: number;
+  image: string;
+  caption: string;
+  order: number;
+}
+
 export interface Artwork {
   id: number;
   unique_id: string;
   artwork_id: string;
   title: string;
+  subtitle: string;
   slug: string;
   medium: string;
   year: number;
   dimensions: string;
+  edition: string;
+  materials: string;
+  framing: string;
   collection: string | null;
   description: string;
   story: string;
+  artist_statement: string;
   origin: string;
   creation_time: string;
   availability: Availability;
@@ -20,20 +47,37 @@ export interface Artwork {
   is_verified: boolean;
   views_count: number;
   likes_count: number;
+  sections: ArtworkSection[];
+  symbolism_entries: ArtworkSymbolismEntry[];
+  gallery_images: ArtworkGalleryImage[];
   created_at: string;
   updated_at: string;
 }
+
+export type ArtworkSectionInput = Partial<Pick<ArtworkSection, "id">> &
+  Omit<ArtworkSection, "id">;
+
+export type ArtworkSymbolismEntryInput = Partial<Pick<ArtworkSymbolismEntry, "id">> &
+  Omit<ArtworkSymbolismEntry, "id">;
+
+export type ArtworkGalleryImageInput = Partial<Pick<ArtworkGalleryImage, "id">> &
+  Omit<ArtworkGalleryImage, "id">;
 
 export type ArtworkInput = Partial<
   Pick<
     Artwork,
     | "title"
+    | "subtitle"
     | "medium"
     | "year"
     | "dimensions"
+    | "edition"
+    | "materials"
+    | "framing"
     | "collection"
     | "description"
     | "story"
+    | "artist_statement"
     | "origin"
     | "creation_time"
     | "availability"
@@ -41,7 +85,11 @@ export type ArtworkInput = Partial<
     | "video"
     | "is_verified"
   >
->;
+> & {
+  sections?: ArtworkSectionInput[];
+  symbolism_entries?: ArtworkSymbolismEntryInput[];
+  gallery_images?: ArtworkGalleryImageInput[];
+};
 
 export interface Collection {
   id: number;
