@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ArtworkCard from "@/components/site/ArtworkCard";
 import SectionLabel from "@/components/site/SectionLabel";
@@ -24,6 +25,14 @@ import { getArtwork } from "@/lib/api/artworks";
 import { getCollection, getCollectionArtworks } from "@/lib/api/collections";
 import { ApiError } from "@/lib/api/client";
 import type { Artwork, Collection } from "@/lib/api/types";
+import JsonLd from "@/lib/seo/jsonLd";
+import { createMetadata } from "@/lib/seo/metadata";
+import {
+  artworkImageAlt,
+  breadcrumbSchema,
+  visualArtworkSchema,
+} from "@/lib/seo/schema";
+import { truncateDescription } from "@/lib/seo/site";
 import ArtworkViewer from "./ArtworkViewer";
 
 type ArtworkPageProps = {
@@ -44,6 +53,48 @@ const journeyStages = [
   { label: "Final Touches", Icon: BrushIcon },
   { label: "The Final Piece", Icon: FrameIcon },
 ];
+
+function getArtworkDescription(artwork: Artwork) {
+  const status = artwork.is_verified
+    ? "Verified original artwork"
+    : "Artwork authentication record";
+  const source =
+    artwork.meta_description ||
+    artwork.description ||
+    artwork.story ||
+    `${artwork.title} is a ${artwork.year} ${artwork.medium} artwork by Tetra.`;
+
+  return truncateDescription(
+    `${source} ${status} ${artwork.artwork_id}.`
+  );
+}
+
+export async function generateMetadata({
+  params,
+}: ArtworkPageProps): Promise<Metadata> {
+  const { artworkId } = await params;
+
+  try {
+    const artwork = await getArtwork(artworkId);
+    const title =
+      artwork.meta_title ||
+      `${artwork.title} (${artwork.year}) | ${artwork.medium} | Tetra Art`;
+
+    return createMetadata({
+      title,
+      description: getArtworkDescription(artwork),
+      path: `/artwork/${artwork.artwork_id}`,
+      image: artwork.og_image || artwork.image || undefined,
+    });
+  } catch {
+    return createMetadata({
+      title: `${artworkId} | Tetra Art`,
+      description:
+        "View the artwork story, digital signature, and QR-linked authentication record for this original Tetra artwork.",
+      path: `/artwork/${artworkId}`,
+    });
+  }
+}
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("en-US", {
@@ -107,6 +158,16 @@ export default async function ArtworkDetailPage({ params }: ArtworkPageProps) {
 
   return (
     <>
+      <JsonLd
+        data={[
+          visualArtworkSchema(artwork),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Gallery", path: "/gallery" },
+            { name: artwork.title, path: `/artwork/${artwork.artwork_id}` },
+          ]),
+        ]}
+      />
       {/* Hero */}
       <section className="border-b border-offwhite/10">
         <div className="mx-auto grid max-w-7xl gap-12 px-6 py-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:items-center lg:px-12">
@@ -270,7 +331,11 @@ export default async function ArtworkDetailPage({ params }: ArtworkPageProps) {
               {artwork.gallery_images.map((item) => (
                 <figure key={item.id} className="overflow-hidden rounded-2xl border border-offwhite/10">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={item.image} alt={item.caption} className="h-64 w-full object-cover" />
+                  <img
+                    src={item.image}
+                    alt={item.caption || artworkImageAlt(artwork)}
+                    className="h-64 w-full object-cover"
+                  />
                   {item.caption && (
                     <figcaption className="px-4 py-3 text-xs text-offwhite/60">
                       {item.caption}

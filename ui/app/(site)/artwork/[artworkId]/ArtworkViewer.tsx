@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ExpandIcon, HeartIcon, PlayIcon, ShareIcon } from "@/components/ui/Icons";
 import type { Artwork } from "@/lib/api/types";
+import { artworkImageAlt } from "@/lib/seo/schema";
 
 type ArtworkViewerProps = {
   artwork: Artwork;
@@ -36,7 +37,7 @@ export default function ArtworkViewer({ artwork }: ArtworkViewerProps) {
         {artwork.image ? (
           <img
             src={artwork.image}
-            alt={artwork.title}
+            alt={artworkImageAlt(artwork)}
             className="h-full w-full object-cover"
           />
         ) : (
@@ -106,7 +107,7 @@ export default function ArtworkViewer({ artwork }: ArtworkViewerProps) {
         >
           <img
             src={artwork.image}
-            alt={artwork.title}
+            alt={artworkImageAlt(artwork)}
             className="max-h-full max-w-full rounded-lg object-contain"
           />
           <button

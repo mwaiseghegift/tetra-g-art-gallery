@@ -14,6 +14,11 @@ import { socialLinks } from "@/lib/data/info.data";
 import { getArtworks } from "@/lib/api/artworks";
 import { getCollections } from "@/lib/api/collections";
 import type { Artwork, Collection } from "@/lib/api/types";
+import JsonLd from "@/lib/seo/jsonLd";
+import { createMetadata } from "@/lib/seo/metadata";
+import { artworkImageAlt, personSchema, websiteSchema } from "@/lib/seo/schema";
+
+export const metadata = createMetadata();
 
 const scanFeatures = [
   {
@@ -87,6 +92,7 @@ export default async function Home() {
 
   return (
     <>
+      <JsonLd data={[websiteSchema(), personSchema()]} />
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-offwhite/10">
         <div className="absolute inset-0 bg-linear-to-br from-charcoal via-[#0d0b09] to-charcoal-soft" />
@@ -180,7 +186,11 @@ export default async function Home() {
               >
                 <img
                   src={card.src}
-                  alt={card.artwork ? card.title : ""}
+                  alt={
+                    card.artwork
+                      ? artworkImageAlt(card.artwork)
+                      : `${card.title} artwork by Tetra`
+                  }
                   className="h-full w-full object-cover grayscale transition duration-700 group-hover:scale-105 group-hover:grayscale-0"
                 />
                 <div
@@ -269,7 +279,7 @@ export default async function Home() {
               {heroArtwork?.image ? (
                 <img
                   src={heroArtwork.image}
-                  alt={heroArtwork.title}
+                  alt={artworkImageAlt(heroArtwork)}
                   className="h-full w-full object-cover"
                 />
               ) : (

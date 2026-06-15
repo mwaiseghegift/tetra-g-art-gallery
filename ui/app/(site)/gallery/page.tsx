@@ -6,11 +6,25 @@ import { ArrowRightIcon, QrIcon } from "@/components/ui/Icons";
 import { getArtworks } from "@/lib/api/artworks";
 import { getCollections } from "@/lib/api/collections";
 import type { Artwork, Collection } from "@/lib/api/types";
+import JsonLd from "@/lib/seo/jsonLd";
+import { createMetadata } from "@/lib/seo/metadata";
+import {
+  artworkImageAlt,
+  breadcrumbSchema,
+  collectionPageSchema,
+} from "@/lib/seo/schema";
 import GalleryExplorer from "./GalleryExplorer";
 
 type GalleryPageProps = {
   searchParams: Promise<{ collection?: string }>;
 };
+
+export const metadata = createMetadata({
+  title: "Gallery | Tetra Art",
+  description:
+    "Browse original Tetra artworks by collection, story, medium, and year, with QR-linked authentication records for each physical piece.",
+  path: "/gallery",
+});
 
 export default async function GalleryPage({ searchParams }: GalleryPageProps) {
   const { collection } = await searchParams;
@@ -22,20 +36,36 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
 
   const totalViews = artworks.reduce((sum, a) => sum + a.views_count, 0);
   const totalLikes = artworks.reduce((sum, a) => sum + a.likes_count, 0);
-  const sampleImage = artworks.find((a) => a.image)?.image;
+  const sampleArtwork = artworks.find((a) => a.image);
 
   return (
     <>
+      <JsonLd
+        data={[
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Gallery", path: "/gallery" },
+          ]),
+          collectionPageSchema(collections, "/gallery"),
+        ]}
+      />
       {/* Header */}
       <section className="relative overflow-hidden border-b border-offwhite/10">
-        <div className="absolute inset-0 bg-linear-to-b from-charcoal via-charcoal to-charcoal-soft" />
-        <div className="absolute left-1/2 top-0 h-px w-2/3 -translate-x-1/2 bg-linear-to-r from-transparent via-gold/40 to-transparent" />
-        <div className="absolute -top-32 left-1/2 h-64 w-160 -translate-x-1/2 rounded-full bg-gold/10 blur-3xl" />
+        <img
+          src={sampleArtwork?.image || "/images/IMG_5848.jpg"}
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover object-center grayscale"
+        />
+        <div className="absolute inset-0 bg-gold/15 mix-blend-color" />
+        <div className="absolute inset-0 bg-linear-to-b from-charcoal/90 via-charcoal/78 to-charcoal/95" />
+        <div className="absolute inset-0 bg-linear-to-r from-charcoal via-charcoal/82 to-charcoal/55" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(200,162,74,0.18),transparent_34%)]" />
+        <div className="absolute left-1/2 top-0 h-px w-2/3 -translate-x-1/2 bg-linear-to-r from-transparent via-gold/50 to-transparent" />
+        <div className="absolute inset-0 opacity-[0.08] bg-[linear-gradient(rgba(245,241,234,0.75)_1px,transparent_1px),linear-gradient(90deg,rgba(245,241,234,0.75)_1px,transparent_1px)] bg-[size:76px_76px]" />
         <div className="absolute inset-y-0 left-0 hidden w-4 bg-tribal-pattern opacity-40 lg:block" />
         <div className="absolute inset-y-0 right-0 hidden w-4 bg-tribal-pattern opacity-40 lg:block" />
 
-        <div className="relative mx-auto max-w-7xl px-6 py-24 text-center lg:px-12 lg:py-28">
-          <SectionLabel align="center">Gallery</SectionLabel>
+        <div className="relative mx-auto max-w-7xl px-6 py-14 text-center lg:px-12 lg:py-16">
           <h1 className="mt-4 font-serif text-5xl sm:text-6xl">
             The Gallery of Tetra
           </h1>
@@ -60,10 +90,10 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
         <div className="mx-auto grid max-w-7xl gap-12 px-6 py-20 lg:grid-cols-2 lg:items-center lg:px-12">
           <div className="flex items-center justify-center">
             <div className="relative aspect-9/16 w-52 overflow-hidden rounded-4xl border-4 border-charcoal bg-charcoal shadow-2xl">
-              {sampleImage ? (
+              {sampleArtwork ? (
                 <img
-                  src={sampleImage}
-                  alt="Artwork preview"
+                  src={sampleArtwork.image}
+                  alt={artworkImageAlt(sampleArtwork)}
                   className="h-full w-full object-cover opacity-70"
                 />
               ) : (

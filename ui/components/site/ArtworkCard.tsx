@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Artwork } from "@/lib/api/types";
 import { ArrowRightIcon, QrIcon, ShieldCheckIcon } from "@/components/ui/Icons";
+import { artworkImageAlt } from "@/lib/seo/schema";
 
 type ArtworkCardProps = {
   artwork: Artwork;
@@ -21,7 +22,7 @@ export default function ArtworkCard({ artwork }: ArtworkCardProps) {
         {artwork.image ? (
           <img
             src={artwork.image}
-            alt={artwork.title}
+            alt={artworkImageAlt(artwork)}
             className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           />
         ) : (

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
+import { createMetadata } from "@/lib/seo/metadata";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -15,9 +16,11 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Tetra Art Gallery",
-  description:
-    "A digital art gallery where every piece tells a story, carries identity, and proves authenticity through QR-linked storytelling.",
+  ...createMetadata(),
+  applicationName: "Tetra Art",
+  authors: [{ name: "Tetra" }],
+  creator: "Tetra",
+  publisher: "Tetra Art",
 };
 
 export default function RootLayout({

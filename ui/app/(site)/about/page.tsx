@@ -12,6 +12,17 @@ import {
   PencilIcon,
   SparkIcon,
 } from "@/components/ui/Icons";
+import JsonLd from "@/lib/seo/jsonLd";
+import { createMetadata } from "@/lib/seo/metadata";
+import { breadcrumbSchema, personSchema } from "@/lib/seo/schema";
+
+export const metadata = createMetadata({
+  title: "About Tetra | Tetra Art",
+  description:
+    "Meet Tetra, a Kenyan artist from Mombasa transforming recycled denim, bottle tops, timber offcuts, and memory into sustainable visual storytelling.",
+  path: "/about",
+  image: "/images/IMG_3886.jpg",
+});
 
 const stats = [
   { value: "700+", label: "Jeans Repurposed", Icon: LayersIcon },
@@ -97,6 +108,15 @@ const coreValues = [
 export default function AboutPage() {
   return (
     <>
+      <JsonLd
+        data={[
+          personSchema(),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "About", path: "/about" },
+          ]),
+        ]}
+      />
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-offwhite/10 bg-charcoal">
         <div className="absolute inset-0 bg-linear-to-br from-charcoal via-[#0d0b09] to-charcoal-soft" />

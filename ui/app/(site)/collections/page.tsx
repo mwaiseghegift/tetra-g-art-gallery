@@ -4,12 +4,31 @@ import EmptyState from "@/components/site/EmptyState";
 import SectionLabel from "@/components/site/SectionLabel";
 import { getCollections } from "@/lib/api/collections";
 import type { Collection } from "@/lib/api/types";
+import JsonLd from "@/lib/seo/jsonLd";
+import { createMetadata } from "@/lib/seo/metadata";
+import { breadcrumbSchema, collectionPageSchema } from "@/lib/seo/schema";
+
+export const metadata = createMetadata({
+  title: "Collections | Tetra Art",
+  description:
+    "Explore Tetra Art collections and series grouped by theme, memory, identity, sustainability, and African-inspired visual storytelling.",
+  path: "/collections",
+});
 
 export default async function CollectionsPage() {
   const collections = await getCollections().catch((): Collection[] => []);
 
   return (
     <>
+      <JsonLd
+        data={[
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Collections", path: "/collections" },
+          ]),
+          collectionPageSchema(collections),
+        ]}
+      />
       {/* Header */}
       <section className="border-b border-offwhite/10">
         <div className="mx-auto max-w-7xl px-6 py-20 text-center lg:px-12">

@@ -29,6 +29,9 @@ export interface Artwork {
   title: string;
   subtitle: string;
   slug: string;
+  meta_title: string;
+  meta_description: string;
+  og_image: string;
   medium: string;
   year: number;
   dimensions: string;
@@ -68,6 +71,9 @@ export type ArtworkInput = Partial<
     Artwork,
     | "title"
     | "subtitle"
+    | "meta_title"
+    | "meta_description"
+    | "og_image"
     | "medium"
     | "year"
     | "dimensions"
@@ -96,6 +102,9 @@ export interface Collection {
   unique_id: string;
   name: string;
   slug: string;
+  meta_title: string;
+  meta_description: string;
+  og_image: string;
   description: string;
   cover_image: string;
   artworks_count: number;
@@ -104,7 +113,10 @@ export interface Collection {
 }
 
 export type CollectionInput = Partial<
-  Pick<Collection, "name" | "description" | "cover_image">
+  Pick<
+    Collection,
+    "name" | "description" | "cover_image" | "meta_title" | "meta_description" | "og_image"
+  >
 >;
 
 export interface QRCode {
