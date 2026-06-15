@@ -3,16 +3,25 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import {
+  ChartIcon,
+  GearIcon,
+  GridIcon,
+  LayersIcon,
+  PaletteIcon,
+  QrIcon,
+  ShieldCheckIcon,
+} from "@/components/ui/Icons";
 import { useAuth } from "@/lib/auth/AuthContext";
 
 const navLinks = [
-  { label: "Dashboard", href: "/dashboard" },
-  { label: "Artworks", href: "/dashboard/artworks" },
-  { label: "Collections", href: "/dashboard/collections" },
-  { label: "QR Codes", href: "/dashboard/qr-codes" },
-  { label: "Signatures", href: "/dashboard/signatures" },
-  { label: "Analytics", href: "/dashboard/analytics" },
-  { label: "Settings", href: "/dashboard/settings" },
+  { label: "Dashboard", href: "/dashboard", icon: GridIcon },
+  { label: "Artworks", href: "/dashboard/artworks", icon: PaletteIcon },
+  { label: "Collections", href: "/dashboard/collections", icon: LayersIcon },
+  { label: "QR Codes", href: "/dashboard/qr-codes", icon: QrIcon },
+  { label: "Signatures", href: "/dashboard/signatures", icon: ShieldCheckIcon },
+  { label: "Analytics", href: "/dashboard/analytics", icon: ChartIcon },
+  { label: "Settings", href: "/dashboard/settings", icon: GearIcon },
 ];
 
 const titles: Record<string, string> = {
@@ -93,16 +102,18 @@ export default function Topbar() {
               link.href === "/dashboard"
                 ? pathname === "/dashboard"
                 : pathname.startsWith(link.href);
+            const Icon = link.icon;
 
             return (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className={`py-3 text-sm font-medium uppercase tracking-wide transition-colors duration-300 ${
+                className={`flex items-center gap-3 py-3 text-sm font-medium uppercase tracking-wide transition-colors duration-300 ${
                   isActive ? "text-gold" : "text-offwhite hover:text-gold"
                 }`}
               >
+                <Icon className="h-4 w-4 shrink-0" />
                 {link.label}
               </Link>
             );

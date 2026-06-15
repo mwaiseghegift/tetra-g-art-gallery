@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
 import CollectionForm from "@/components/dashboard/CollectionForm";
+import EmptyState from "@/components/site/EmptyState";
 import {
   createCollection,
   deleteCollection,
@@ -86,13 +87,14 @@ export default function CollectionsPage() {
       {isLoading ? (
         <p className="text-sm text-offwhite/50">Loading…</p>
       ) : collections.length === 0 ? (
-        <Card>
-          <p className="text-sm text-offwhite/50">No collections yet.</p>
-        </Card>
+        <EmptyState
+          title="No collections yet"
+          message="Group related artworks into a collection to feature them together."
+        />
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {collections.map((collection) => (
-            <Card key={collection.slug} className="flex flex-col gap-4">
+            <Card key={collection.slug} className={editingSlug === collection.slug ? "flex flex-col gap-4" : "flex flex-col gap-4 p-0"}>
               {editingSlug === collection.slug ? (
                 <>
                   <h3 className="font-serif text-xl text-offwhite">Edit Collection</h3>
@@ -105,6 +107,13 @@ export default function CollectionsPage() {
                 </>
               ) : (
                 <>
+                  <div className="h-36 w-full overflow-hidden rounded-t-2xl border-b border-offwhite/10 bg-charcoal">
+                    {collection.cover_image && (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={collection.cover_image} alt="" className="h-full w-full object-cover" />
+                    )}
+                  </div>
+                  <div className="flex flex-1 flex-col gap-4 p-6 pt-0">
                   <div>
                     <h3 className="font-serif text-xl text-offwhite">{collection.name}</h3>
                     <p className="mt-1 text-xs uppercase tracking-wide text-offwhite/40">
@@ -130,6 +139,7 @@ export default function CollectionsPage() {
                     >
                       {deletingSlug === collection.slug ? "Deleting…" : "Delete"}
                     </button>
+                  </div>
                   </div>
                 </>
               )}

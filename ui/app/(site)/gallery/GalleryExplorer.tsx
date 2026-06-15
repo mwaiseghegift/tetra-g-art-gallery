@@ -55,8 +55,8 @@ export default function GalleryExplorer({
   return (
     <div>
       {/* Filter bar */}
-      <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-        <div className="flex flex-wrap items-center gap-3">
+      <div className="flex flex-col gap-4 rounded-lg border border-offwhite/10 bg-charcoal-soft p-4 lg:flex-row lg:items-center lg:justify-between lg:p-5">
+        <div className="flex flex-wrap items-center gap-2.5">
           <FilterChip
             label="All Works"
             active={medium === "all"}
@@ -77,6 +77,10 @@ export default function GalleryExplorer({
             />
           ))}
 
+          {(collections.length > 0 || years.length > 0) && (
+            <span className="hidden h-6 w-px bg-offwhite/10 lg:block" />
+          )}
+
           {collections.length > 0 && (
             <select
               value={collection}
@@ -84,7 +88,7 @@ export default function GalleryExplorer({
                 setCollection(e.target.value);
                 setVisibleCount(PAGE_SIZE);
               }}
-              className="rounded-full border border-offwhite/15 bg-charcoal-soft px-4 py-2 text-xs font-medium uppercase tracking-wide text-offwhite outline-none transition-colors duration-300 focus:border-gold"
+              className="rounded-md border border-offwhite/15 bg-charcoal px-4 py-2 text-xs font-medium uppercase tracking-wide text-offwhite outline-none transition-colors duration-300 hover:border-offwhite/30 focus:border-gold"
             >
               <option value="all">Series</option>
               {collections.map((c) => (
@@ -102,7 +106,7 @@ export default function GalleryExplorer({
                 setYear(e.target.value);
                 setVisibleCount(PAGE_SIZE);
               }}
-              className="rounded-full border border-offwhite/15 bg-charcoal-soft px-4 py-2 text-xs font-medium uppercase tracking-wide text-offwhite outline-none transition-colors duration-300 focus:border-gold"
+              className="rounded-md border border-offwhite/15 bg-charcoal px-4 py-2 text-xs font-medium uppercase tracking-wide text-offwhite outline-none transition-colors duration-300 hover:border-offwhite/30 focus:border-gold"
             >
               <option value="all">Year</option>
               {years.map((y) => (
@@ -124,7 +128,7 @@ export default function GalleryExplorer({
             }}
             type="search"
             placeholder="Search artworks..."
-            className="w-full rounded-full border border-offwhite/15 bg-charcoal-soft py-2.5 pl-11 pr-4 text-sm text-offwhite placeholder:text-offwhite/30 outline-none transition-colors duration-300 focus:border-gold"
+            className="w-full rounded-md border border-offwhite/15 bg-charcoal py-2.5 pl-11 pr-4 text-sm text-offwhite placeholder:text-offwhite/30 outline-none transition-colors duration-300 hover:border-offwhite/30 focus:border-gold"
           />
         </div>
       </div>
@@ -181,10 +185,10 @@ function FilterChip({
     <button
       type="button"
       onClick={onClick}
-      className={`rounded-full border px-4 py-2 text-xs font-medium uppercase tracking-wide transition-colors duration-300 ${
+      className={`rounded-md border px-4 py-2 text-xs font-medium uppercase tracking-wide transition-colors duration-300 ${
         active
           ? "border-gold bg-gold text-charcoal"
-          : "border-offwhite/15 text-offwhite/70 hover:border-gold hover:text-gold"
+          : "border-offwhite/15 bg-charcoal text-offwhite/70 hover:border-gold hover:text-gold"
       }`}
     >
       {label}

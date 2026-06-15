@@ -323,3 +323,43 @@ export function ImageIcon(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
+export function GridIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} {...props}>
+      <rect x="3" y="3" width="8" height="8" rx="1" />
+      <rect x="13" y="3" width="8" height="8" rx="1" />
+      <rect x="3" y="13" width="8" height="8" rx="1" />
+      <rect x="13" y="13" width="8" height="8" rx="1" />
+    </svg>
+  );
+}
+
+export function ChartIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} {...props}>
+      <path d="M4 20V10M11 20V4M18 20v-7" strokeLinecap="round" />
+      <path d="M3 20h18" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function GearIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} {...props}>
+      <circle cx="12" cy="12" r="3" />
+      <path
+        d="M12 3v2.2M12 18.8V21M3 12h2.2M18.8 12H21M5.6 5.6l1.6 1.6M16.8 16.8l1.6 1.6M5.6 18.4l1.6-1.6M16.8 7.2l1.6-1.6"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+export function TrashIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} {...props}>
+      <path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}

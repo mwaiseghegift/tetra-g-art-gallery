@@ -17,6 +17,7 @@ export const metadata = createMetadata({
 
 export default async function CollectionsPage() {
   const collections = await getCollections().catch((): Collection[] => []);
+  const heroCollection = collections.find((collection) => collection.cover_image);
 
   return (
     <>
@@ -30,8 +31,22 @@ export default async function CollectionsPage() {
         ]}
       />
       {/* Header */}
-      <section className="border-b border-offwhite/10">
-        <div className="mx-auto max-w-7xl px-6 py-20 text-center lg:px-12">
+      <section className="relative overflow-hidden border-b border-offwhite/10">
+        <img
+          src={heroCollection?.cover_image || "/images/IMG_3903.jpg"}
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover object-center grayscale"
+        />
+        <div className="absolute inset-0 bg-gold/15 mix-blend-color" />
+        <div className="absolute inset-0 bg-linear-to-b from-charcoal/92 via-charcoal/78 to-charcoal/96" />
+        <div className="absolute inset-0 bg-linear-to-r from-charcoal via-charcoal/84 to-charcoal/55" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(200,162,74,0.18),transparent_34%)]" />
+        <div className="absolute inset-0 opacity-[0.08] bg-[linear-gradient(rgba(245,241,234,0.75)_1px,transparent_1px),linear-gradient(90deg,rgba(245,241,234,0.75)_1px,transparent_1px)] bg-[size:76px_76px]" />
+        <div className="absolute left-1/2 top-0 h-px w-2/3 -translate-x-1/2 bg-linear-to-r from-transparent via-gold/50 to-transparent" />
+        <div className="absolute inset-y-0 left-0 hidden w-4 bg-tribal-pattern opacity-40 lg:block" />
+        <div className="absolute inset-y-0 right-0 hidden w-4 bg-tribal-pattern opacity-40 lg:block" />
+
+        <div className="relative mx-auto max-w-7xl px-6 py-14 text-center lg:px-12 lg:py-16">
           <SectionLabel align="center">Collections</SectionLabel>
           <h1 className="mt-4 font-serif text-5xl sm:text-6xl">
             Curated Themes &amp; Series

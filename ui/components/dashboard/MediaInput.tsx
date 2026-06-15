@@ -43,11 +43,11 @@ export default function MediaInput({ label, value, onChange, mediaType, folder }
     <div className="flex flex-col gap-2">
       <div className="flex items-center justify-between">
         <span className="text-xs font-medium uppercase tracking-wide text-sand">{label}</span>
-        <div className="flex gap-1 rounded-full border border-offwhite/15 p-1 text-xs">
+        <div className="flex gap-1 rounded-md border border-offwhite/15 p-1 text-xs">
           <button
             type="button"
             onClick={() => setMode("link")}
-            className={`rounded-full px-3 py-1 transition-colors duration-300 ${
+            className={`rounded-md px-3 py-1 transition-colors duration-300 ${
               mode === "link" ? "bg-gold text-charcoal" : "text-offwhite/60 hover:text-offwhite"
             }`}
           >
@@ -56,7 +56,7 @@ export default function MediaInput({ label, value, onChange, mediaType, folder }
           <button
             type="button"
             onClick={() => setMode("upload")}
-            className={`rounded-full px-3 py-1 transition-colors duration-300 ${
+            className={`rounded-md px-3 py-1 transition-colors duration-300 ${
               mode === "upload" ? "bg-gold text-charcoal" : "text-offwhite/60 hover:text-offwhite"
             }`}
           >
@@ -79,7 +79,7 @@ export default function MediaInput({ label, value, onChange, mediaType, folder }
             accept={mediaType === "image" ? "image/*" : "video/*"}
             onChange={handleFileChange}
             disabled={isUploading}
-            className="rounded-lg border border-offwhite/15 bg-charcoal-soft px-4 py-2.5 text-sm text-offwhite file:mr-4 file:rounded-full file:border-0 file:bg-gold file:px-4 file:py-1.5 file:text-xs file:font-medium file:uppercase file:tracking-wide file:text-charcoal disabled:opacity-50"
+            className="rounded-lg border border-offwhite/15 bg-charcoal-soft px-4 py-2.5 text-sm text-offwhite file:mr-4 file:rounded-md file:border-0 file:bg-gold file:px-4 file:py-1.5 file:text-xs file:font-medium file:uppercase file:tracking-wide file:text-charcoal disabled:opacity-50"
           />
           {isUploading && <span className="text-xs text-offwhite/50">Uploading…</span>}
         </div>

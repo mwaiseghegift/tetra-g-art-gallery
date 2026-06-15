@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
+import MediaInput from "@/components/dashboard/MediaInput";
 import Textarea from "@/components/ui/Textarea";
 import { ApiError } from "@/lib/api/client";
 import type { Collection, CollectionInput } from "@/lib/api/types";
@@ -61,12 +62,12 @@ export default function CollectionForm({
         value={form.description ?? ""}
         onChange={(e) => update("description", e.target.value)}
       />
-      <Input
-        id="cover_image"
-        label="Cover Image URL"
-        placeholder="https://…"
+      <MediaInput
+        label="Cover Image"
+        mediaType="image"
+        folder="tetra-art/collections"
         value={form.cover_image ?? ""}
-        onChange={(e) => update("cover_image", e.target.value)}
+        onChange={(url) => update("cover_image", url)}
       />
 
       {error && (

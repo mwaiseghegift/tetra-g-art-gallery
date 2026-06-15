@@ -449,7 +449,7 @@ export default async function ArtworkDetailPage({ params }: ArtworkPageProps) {
               href={artwork.video}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-gold/40 px-5 py-2.5 text-xs font-medium uppercase tracking-[0.2em] text-gold transition-colors duration-300 hover:bg-gold hover:text-charcoal"
+              className="inline-flex items-center gap-2 rounded-md border border-gold/40 px-5 py-2.5 text-xs font-medium uppercase tracking-[0.2em] text-gold transition-colors duration-300 hover:bg-gold hover:text-charcoal"
             >
               <PlayIcon className="h-3.5 w-3.5" />
               Watch Time-lapse Video

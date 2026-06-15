@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState, type FormEvent } from "react
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import Select from "@/components/ui/Select";
+import EmptyState from "@/components/site/EmptyState";
 import { getArtworks } from "@/lib/api/artworks";
 import { createQRCode, deleteQRCode, getQRCodes } from "@/lib/api/qrCodes";
 import { ApiError } from "@/lib/api/client";
@@ -114,9 +115,10 @@ export default function QRCodesPage() {
       {isLoading ? (
         <p className="text-sm text-offwhite/50">Loading…</p>
       ) : qrCodes.length === 0 ? (
-        <Card>
-          <p className="text-sm text-offwhite/50">No QR codes generated yet.</p>
-        </Card>
+        <EmptyState
+          title="No QR codes yet"
+          message="Generate a QR code for an artwork to link it to its verification page."
+        />
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {qrCodes.map((qr) => (

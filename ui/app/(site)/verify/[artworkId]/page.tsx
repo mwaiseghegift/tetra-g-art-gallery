@@ -78,7 +78,7 @@ export default async function VerifyArtworkPage({ params }: VerifyPageProps) {
         </p>
         <Link
           href={`/artwork/${artwork.artwork_id}`}
-          className="mt-8 inline-flex rounded-full border border-gold/40 px-6 py-3 text-xs font-medium uppercase tracking-[0.2em] text-gold transition-colors hover:bg-gold hover:text-charcoal"
+          className="mt-8 inline-flex rounded-md border border-gold/40 px-6 py-3 text-xs font-medium uppercase tracking-[0.2em] text-gold transition-colors hover:bg-gold hover:text-charcoal"
         >
           View Artwork Record
         </Link>

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Card from "@/components/ui/Card";
 import StatCard from "@/components/dashboard/StatCard";
+import { EyeIcon, HeartIcon, QrIcon } from "@/components/ui/Icons";
 import { getArtworks } from "@/lib/api/artworks";
 import { getQRCodes } from "@/lib/api/qrCodes";
 import { useAuth } from "@/lib/auth/AuthContext";
@@ -40,9 +41,9 @@ export default function AnalyticsPage() {
   return (
     <div className="flex flex-col gap-8">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <StatCard label="Total Views" value={totalViews} />
-        <StatCard label="Total Likes" value={totalLikes} />
-        <StatCard label="Total QR Scans" value={totalScans} />
+        <StatCard label="Total Views" value={totalViews} icon={<EyeIcon className="h-5 w-5" />} />
+        <StatCard label="Total Likes" value={totalLikes} icon={<HeartIcon className="h-5 w-5" />} />
+        <StatCard label="Total QR Scans" value={totalScans} icon={<QrIcon className="h-5 w-5" />} />
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">

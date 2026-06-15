@@ -79,7 +79,7 @@ export default function Footer() {
             <p className="mt-4 text-sm text-offwhite/70">
               Get updates on new artworks, exhibitions and stories.
             </p>
-            <form className="mt-4 flex overflow-hidden rounded-full border border-offwhite/15 focus-within:border-gold">
+            <form className="mt-4 flex overflow-hidden rounded-md border border-offwhite/15 focus-within:border-gold">
               <input
                 type="email"
                 placeholder="Your email address"

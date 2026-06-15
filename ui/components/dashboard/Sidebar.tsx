@@ -3,16 +3,25 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import Logo from "@/components/ui/Logo";
+import {
+  ChartIcon,
+  GearIcon,
+  GridIcon,
+  LayersIcon,
+  PaletteIcon,
+  QrIcon,
+  ShieldCheckIcon,
+} from "@/components/ui/Icons";
 import { useAuth } from "@/lib/auth/AuthContext";
 
 const navLinks = [
-  { label: "Dashboard", href: "/dashboard" },
-  { label: "Artworks", href: "/dashboard/artworks" },
-  { label: "Collections", href: "/dashboard/collections" },
-  { label: "QR Codes", href: "/dashboard/qr-codes" },
-  { label: "Signatures", href: "/dashboard/signatures" },
-  { label: "Analytics", href: "/dashboard/analytics" },
-  { label: "Settings", href: "/dashboard/settings" },
+  { label: "Dashboard", href: "/dashboard", icon: GridIcon },
+  { label: "Artworks", href: "/dashboard/artworks", icon: PaletteIcon },
+  { label: "Collections", href: "/dashboard/collections", icon: LayersIcon },
+  { label: "QR Codes", href: "/dashboard/qr-codes", icon: QrIcon },
+  { label: "Signatures", href: "/dashboard/signatures", icon: ShieldCheckIcon },
+  { label: "Analytics", href: "/dashboard/analytics", icon: ChartIcon },
+  { label: "Settings", href: "/dashboard/settings", icon: GearIcon },
 ];
 
 export default function Sidebar() {
@@ -37,17 +46,19 @@ export default function Sidebar() {
             link.href === "/dashboard"
               ? pathname === "/dashboard"
               : pathname.startsWith(link.href);
+          const Icon = link.icon;
 
           return (
             <Link
               key={link.href}
               href={link.href}
-              className={`rounded-lg px-4 py-2.5 text-sm font-medium uppercase tracking-wide transition-colors duration-300 ${
+              className={`flex items-center gap-3 rounded-lg px-4 py-2.5 text-sm font-medium uppercase tracking-wide transition-colors duration-300 ${
                 isActive
                   ? "bg-gold/10 text-gold"
                   : "text-offwhite/70 hover:bg-offwhite/5 hover:text-offwhite"
               }`}
             >
+              <Icon className="h-4 w-4 shrink-0" />
               {link.label}
             </Link>
           );
@@ -55,8 +66,15 @@ export default function Sidebar() {
       </nav>
 
       <div className="border-t border-offwhite/10 px-6 py-6">
-        <p className="truncate text-sm text-offwhite/80">{user?.username}</p>
-        <p className="mt-1 text-xs text-offwhite/40">Signed in as admin</p>
+        <div className="flex items-center gap-3">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gold/10 font-serif text-sm text-gold">
+            {(user?.username ?? "?").slice(0, 1).toUpperCase()}
+          </span>
+          <div className="min-w-0">
+            <p className="truncate text-sm text-offwhite/80">{user?.username}</p>
+            <p className="text-xs text-offwhite/40">Signed in as admin</p>
+          </div>
+        </div>
         <button
           type="button"
           onClick={handleLogout}

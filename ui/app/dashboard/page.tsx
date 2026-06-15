@@ -5,6 +5,7 @@ import Link from "next/link";
 import StatCard from "@/components/dashboard/StatCard";
 import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
+import { HeartIcon, LayersIcon, PaletteIcon, QrIcon } from "@/components/ui/Icons";
 import { getArtworks } from "@/lib/api/artworks";
 import { getCollections } from "@/lib/api/collections";
 import { getQRCodes } from "@/lib/api/qrCodes";
@@ -47,13 +48,26 @@ export default function DashboardHomePage() {
   return (
     <div className="flex flex-col gap-8">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard label="Artworks" value={isLoading ? "—" : artworks.length} />
-        <StatCard label="Collections" value={isLoading ? "—" : collections.length} />
-        <StatCard label="Total Views" value={isLoading ? "—" : totalViews} />
+        <StatCard
+          label="Artworks"
+          value={isLoading ? "—" : artworks.length}
+          icon={<PaletteIcon className="h-5 w-5" />}
+        />
+        <StatCard
+          label="Collections"
+          value={isLoading ? "—" : collections.length}
+          icon={<LayersIcon className="h-5 w-5" />}
+        />
+        <StatCard
+          label="Total Views"
+          value={isLoading ? "—" : totalViews}
+          hint={`${totalLikes} likes across all artworks`}
+          icon={<HeartIcon className="h-5 w-5" />}
+        />
         <StatCard
           label="QR Scans"
           value={isLoading ? "—" : totalScans}
-          hint={`${totalLikes} likes across all artworks`}
+          icon={<QrIcon className="h-5 w-5" />}
         />
       </div>
 
