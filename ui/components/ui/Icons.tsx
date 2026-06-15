@@ -248,3 +248,78 @@ export function FrameIcon(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
+export function SendIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} {...props}>
+      <path d="M22 2L11 13" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M22 2L15 22l-4-9-9-4 20-7z" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function UserIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} {...props}>
+      <circle cx="12" cy="8" r="4" />
+      <path d="M4 21c0-4 3.5-6 8-6s8 2 8 6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function ListIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} {...props}>
+      <path d="M8 6h13M8 12h13M8 18h13" strokeLinecap="round" />
+      <circle cx="3.5" cy="6" r="1.2" fill="currentColor" stroke="none" />
+      <circle cx="3.5" cy="12" r="1.2" fill="currentColor" stroke="none" />
+      <circle cx="3.5" cy="18" r="1.2" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+export function PhoneIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} {...props}>
+      <path
+        d="M5 4h3l2 5-2.5 1.5a11 11 0 005 5L14 13l5 2v3a2 2 0 01-2 2C9.5 20 4 14.5 4 7a2 2 0 011-3z"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function HandshakeIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} {...props}>
+      <path
+        d="M2 11l4-3 4 3 3-2 3 2 4-3 2 2-4 4-3-2-2 2-2.5-2L5 15z"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path d="M9 12l3 3 3-2M13 16l-2 2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function LeafIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} {...props}>
+      <path
+        d="M20 4C10 4 4 10 4 18c8 0 16-6 16-16-2 0-3.5.5-5 1.5"
+        strokeLinejoin="round"
+      />
+      <path d="M5 19c3-6 8-10 14-13" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function ImageIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} {...props}>
+      <rect x="3" y="4" width="18" height="16" rx="2" />
+      <circle cx="8.5" cy="9.5" r="1.5" />
+      <path d="M21 16l-5-5-4 4-3-3-6 6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}

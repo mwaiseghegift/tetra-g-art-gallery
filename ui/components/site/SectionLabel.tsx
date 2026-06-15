@@ -1,15 +1,18 @@
+import type { ReactNode } from "react";
 import { SparkIcon } from "@/components/ui/Icons";
 
 type SectionLabelProps = {
   children: React.ReactNode;
   align?: "left" | "center";
   className?: string;
+  icon?: ReactNode;
 };
 
 export default function SectionLabel({
   children,
   align = "left",
   className = "",
+  icon,
 }: SectionLabelProps) {
   return (
     <p
@@ -17,7 +20,7 @@ export default function SectionLabel({
         align === "center" ? "justify-center" : ""
       } ${className}`}
     >
-      <SparkIcon className="h-3 w-3" />
+      {icon ?? <SparkIcon className="h-3 w-3" />}
       {children}
     </p>
   );

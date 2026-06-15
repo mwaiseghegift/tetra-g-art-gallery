@@ -10,40 +10,10 @@ import {
   QrIcon,
   ShieldCheckIcon,
 } from "@/components/ui/Icons";
-import {
-  InstagramIcon,
-  MailIcon,
-  PinterestIcon,
-  TiktokIcon,
-  YoutubeIcon,
-} from "@/components/ui/SocialIcons";
+import { socialLinks } from "@/lib/data/info.data";
 import { getArtworks } from "@/lib/api/artworks";
 import { getCollections } from "@/lib/api/collections";
 import type { Artwork, Collection } from "@/lib/api/types";
-
-const journalPosts = [
-  {
-    date: "May 10, 2024",
-    title: "Why I believe African art belongs in digital museums",
-    excerpt:
-      "Exploring how QR-linked storytelling preserves meaning long after a piece leaves the studio.",
-    image: "/images/IMG_3886.jpg",
-  },
-  {
-    date: "April 28, 2024",
-    title: "Behind the brush: my creative process",
-    excerpt:
-      "From sketch to final piece — a look at how texture, colour and memory come together on canvas.",
-    image: "/images/IMG_3057.jpg",
-  },
-  {
-    date: "April 15, 2024",
-    title: "The power of storytelling through art",
-    excerpt:
-      "Every artwork carries a voice. Here's how I translate identity and heritage into visual language.",
-    image: "/images/IMG_1632.jpg",
-  },
-];
 
 const scanFeatures = [
   {
@@ -87,17 +57,18 @@ export default async function Home() {
 
         {/* Vertical social rail */}
         <div className="absolute inset-y-0 right-0 z-10 hidden w-16 flex-col items-center justify-center gap-5 border-l border-offwhite/10 lg:flex">
-          {[InstagramIcon, PinterestIcon, YoutubeIcon, TiktokIcon, MailIcon].map(
-            (Icon, index) => (
-              <a
-                key={index}
-                href="#"
-                className="text-offwhite/60 transition-colors duration-300 hover:text-gold"
-              >
-                <Icon className="h-4 w-4" />
-              </a>
-            )
-          )}
+          {socialLinks.map(({ name, url, icon: Icon }) => (
+            <a
+              key={name}
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={name}
+              className="text-offwhite/60 transition-colors duration-300 hover:text-gold"
+            >
+              <Icon className="h-4 w-4" />
+            </a>
+          ))}
           <span className="h-16 w-px bg-offwhite/10" />
         </div>
 
@@ -331,55 +302,6 @@ export default async function Home() {
             ))}
           </div>
         )}
-      </section>
-
-      {/* From the Journal */}
-      <section className="border-t border-offwhite/10 bg-offwhite text-charcoal">
-        <div className="mx-auto max-w-7xl px-6 py-20 lg:px-12">
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <div>
-              <SectionLabel className="text-terracotta">
-                From the Journal
-              </SectionLabel>
-              <h2 className="mt-3 font-serif text-3xl sm:text-4xl">
-                Stories &amp; Reflections
-              </h2>
-            </div>
-            <Button href="/journal" variant="outline" className="border-charcoal/20! text-charcoal! text-xs hover:border-terracotta! hover:text-terracotta!">
-              View All Posts
-              <ArrowRightIcon className="h-3.5 w-3.5" />
-            </Button>
-          </div>
-
-          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-3">
-            {journalPosts.map((post) => (
-              <article
-                key={post.title}
-                className="group flex flex-col gap-4 rounded-2xl border border-charcoal/10 bg-white/40 p-4 transition-colors duration-300 hover:border-terracotta/30"
-              >
-                <div className="aspect-4/3 overflow-hidden rounded-xl">
-                  <img
-                    src={post.image}
-                    alt={post.title}
-                    className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                  />
-                </div>
-                <div className="flex flex-col gap-2 px-1">
-                  <p className="text-xs uppercase tracking-[0.2em] text-terracotta">
-                    {post.date}
-                  </p>
-                  <h3 className="font-serif text-xl leading-snug text-charcoal">
-                    {post.title}
-                  </h3>
-                  <span className="mt-1 inline-flex items-center gap-1 text-xs font-medium uppercase tracking-[0.2em] text-terracotta">
-                    Read More
-                    <ArrowRightIcon className="h-3 w-3" />
-                  </span>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
       </section>
 
       {/* CTA */}

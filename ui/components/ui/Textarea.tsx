@@ -1,11 +1,12 @@
-import type { ComponentPropsWithoutRef } from "react";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 type TextareaProps = ComponentPropsWithoutRef<"textarea"> & {
   label?: string;
   hint?: string;
+  icon?: ReactNode;
 };
 
-export default function Textarea({ label, hint, id, className = "", ...props }: TextareaProps) {
+export default function Textarea({ label, hint, icon, id, className = "", ...props }: TextareaProps) {
   return (
     <label className="flex flex-col gap-2" htmlFor={id}>
       {label && (
@@ -13,11 +14,18 @@ export default function Textarea({ label, hint, id, className = "", ...props }: 
           {label}
         </span>
       )}
-      <textarea
-        id={id}
-        className={`min-h-28 rounded-lg border border-offwhite/15 bg-charcoal-soft px-4 py-2.5 text-sm text-offwhite placeholder:text-offwhite/30 outline-none transition-colors duration-300 focus:border-gold ${className}`}
-        {...props}
-      />
+      <div className="relative">
+        {icon && (
+          <span className="pointer-events-none absolute left-4 top-4 text-offwhite/40">
+            {icon}
+          </span>
+        )}
+        <textarea
+          id={id}
+          className={`min-h-28 w-full rounded-lg border border-offwhite/15 bg-charcoal-soft px-4 py-2.5 text-sm text-offwhite placeholder:text-offwhite/30 outline-none transition-colors duration-300 focus:border-gold ${icon ? "pl-11" : ""} ${className}`}
+          {...props}
+        />
+      </div>
       {hint && <span className="text-xs text-offwhite/40">{hint}</span>}
     </label>
   );

@@ -1,32 +1,16 @@
 import Link from "next/link";
 import Logo from "@/components/ui/Logo";
-import {
-  FacebookIcon,
-  InstagramIcon,
-  MailIcon,
-  PinterestIcon,
-  TiktokIcon,
-  XIcon,
-  YoutubeIcon,
-} from "@/components/ui/SocialIcons";
+import { directContactDetails, socialLinks } from "@/lib/data/info.data";
 
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "Gallery", href: "/gallery" },
   { label: "Collections", href: "/collections" },
   { label: "About", href: "/about" },
-  { label: "Journal", href: "/journal" },
   { label: "Contact", href: "/contact" },
 ];
 
-const socialLinks = [
-  { label: "Instagram", href: "#", Icon: InstagramIcon },
-  { label: "Pinterest", href: "#", Icon: PinterestIcon },
-  { label: "Facebook", href: "#", Icon: FacebookIcon },
-  { label: "YouTube", href: "#", Icon: YoutubeIcon },
-  { label: "TikTok", href: "#", Icon: TiktokIcon },
-  { label: "X", href: "#", Icon: XIcon },
-];
+const email = directContactDetails.find((item) => item.name === "Email");
 
 export default function Footer() {
   return (
@@ -64,24 +48,28 @@ export default function Footer() {
               Connect
             </h3>
             <div className="mt-4 flex flex-wrap gap-3">
-              {socialLinks.map(({ label, href, Icon }) => (
+              {socialLinks.map(({ name, url, icon: Icon }) => (
                 <a
-                  key={label}
-                  href={href}
-                  aria-label={label}
+                  key={name}
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={name}
                   className="flex h-9 w-9 items-center justify-center rounded-full border border-offwhite/15 text-offwhite/70 transition-colors duration-300 hover:border-gold hover:text-gold"
                 >
                   <Icon className="h-4 w-4" />
                 </a>
               ))}
             </div>
-            <a
-              href="mailto:hello@tetraart.com"
-              className="mt-4 flex items-center gap-2 text-sm text-offwhite/70 transition-colors duration-300 hover:text-gold"
-            >
-              <MailIcon className="h-4 w-4" />
-              hello@tetraart.com
-            </a>
+            {email && (
+              <a
+                href={email.url}
+                className="mt-4 flex items-center gap-2 text-sm text-offwhite/70 transition-colors duration-300 hover:text-gold"
+              >
+                <email.icon className="h-4 w-4" />
+                {email.value}
+              </a>
+            )}
           </div>
 
           <div>
