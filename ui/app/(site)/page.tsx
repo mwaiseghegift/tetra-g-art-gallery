@@ -45,18 +45,75 @@ export default async function Home() {
   const heroArtwork = featured[0] ?? artworks[0];
   const heroSecondary = featured[1];
   const heroTertiary = featured[2];
+  const heroCards = [
+    {
+      artwork: heroSecondary,
+      src: heroSecondary?.image || "/images/IMG_3903.jpg",
+      title: heroSecondary?.title || "Ancestral Memory",
+      meta: heroSecondary?.artwork_id || "ART-2026-002",
+      className:
+        "left-[2%] top-[8%] z-0 h-[52%] w-[38%] -rotate-10 opacity-50 blur-[0.2px] sm:left-[5%] lg:left-[3%] lg:top-[15%] lg:h-[56%] lg:w-[34%]",
+      tintClass: "bg-gold/45",
+    },
+    {
+      artwork: heroTertiary,
+      src: heroTertiary?.image || "/images/IMG_3057.jpg",
+      title: heroTertiary?.title || "Inheritance",
+      meta: heroTertiary?.artwork_id || "ART-2026-003",
+      className:
+        "right-[1%] top-[2%] z-10 h-[50%] w-[45%] rotate-7 opacity-85 sm:right-[4%] lg:right-[1%] lg:top-[5%] lg:h-[57%] lg:w-[39%]",
+      tintClass: "bg-terracotta/50",
+    },
+    {
+      artwork: heroArtwork,
+      src: heroArtwork?.image || "/images/IMG_5848.jpg",
+      title: heroArtwork?.title || "Echoes of Her Voice",
+      meta: heroArtwork?.artwork_id || "ART-2026-001",
+      className:
+        "left-[23%] top-[22%] z-30 h-[66%] w-[57%] -rotate-2 sm:left-[25%] lg:left-[25%] lg:top-[22%] lg:h-[69%] lg:w-[50%]",
+      tintClass: "bg-gold/55",
+      featured: true,
+    },
+    {
+      artwork: artworks[3],
+      src: artworks[3]?.image || "/images/IMG_3076.jpg",
+      title: artworks[3]?.title || "The Quiet Witness",
+      meta: artworks[3]?.artwork_id || "ART-2026-004",
+      className:
+        "-bottom-[1%] right-[10%] z-20 h-[44%] w-[39%] rotate-12 opacity-65 sm:right-[13%] lg:bottom-[1%] lg:right-[16%] lg:h-[47%] lg:w-[32%]",
+      tintClass: "bg-charcoal/20",
+    },
+  ];
 
   return (
     <>
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-offwhite/10">
-        <div className="absolute inset-0 bg-linear-to-br from-charcoal via-charcoal to-charcoal-soft" />
+        <div className="absolute inset-0 bg-linear-to-br from-charcoal via-[#0d0b09] to-charcoal-soft" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_76%_40%,rgba(200,162,74,0.28),transparent_38%),radial-gradient(circle_at_48%_88%,rgba(198,90,58,0.13),transparent_30%)]" />
+        <div className="absolute inset-0 opacity-[0.08] bg-[linear-gradient(rgba(245,241,234,0.8)_1px,transparent_1px),linear-gradient(90deg,rgba(245,241,234,0.8)_1px,transparent_1px)] bg-[size:88px_88px]" />
+        <div className="absolute -right-20 top-8 hidden h-[70%] w-[48%] rotate-6 overflow-hidden rounded-[2rem] border border-offwhite/5 opacity-15 blur-[1px] lg:block">
+          <img
+            src={heroArtwork?.image || "/images/IMG_5848.jpg"}
+            alt=""
+            className="h-full w-full object-cover grayscale"
+          />
+          <div className="absolute inset-0 bg-charcoal/30" />
+        </div>
+        <div
+          className="absolute inset-0 z-10"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(11,11,11,0.98) 0%, rgba(11,11,11,0.94) 34%, rgba(11,11,11,0.58) 62%, rgba(11,11,11,0.82) 100%)",
+          }}
+        />
+        <div className="absolute inset-x-0 bottom-0 z-10 h-36 bg-linear-to-t from-charcoal via-charcoal/70 to-transparent" />
 
         {/* Decorative pattern strip */}
-        <div className="absolute inset-y-0 left-0 hidden w-4 bg-tribal-pattern opacity-50 lg:block" />
+        <div className="absolute inset-y-0 left-0 z-20 hidden w-4 bg-tribal-pattern opacity-50 lg:block" />
 
         {/* Vertical social rail */}
-        <div className="absolute inset-y-0 right-0 z-10 hidden w-16 flex-col items-center justify-center gap-5 border-l border-offwhite/10 lg:flex">
+        <div className="absolute inset-y-0 right-0 z-30 hidden w-16 flex-col items-center justify-center gap-5 border-l border-offwhite/10 lg:flex">
           {socialLinks.map(({ name, url, icon: Icon }) => (
             <a
               key={name}
@@ -72,8 +129,8 @@ export default async function Home() {
           <span className="h-16 w-px bg-offwhite/10" />
         </div>
 
-        <div className="relative mx-auto grid max-w-7xl gap-16 px-6 py-24 lg:grid-cols-2 lg:items-center lg:px-12 lg:py-32 lg:pr-24">
-          <div>
+        <div className="relative z-20 mx-auto grid max-w-7xl gap-8 px-6 py-14 sm:py-16 lg:grid-cols-12 lg:items-center lg:px-12 lg:py-16 lg:pr-24 xl:py-20">
+          <div className="relative z-30 lg:col-span-5">
             <p className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.3em] text-gold">
               <span className="inline-block h-1.5 w-1.5 rotate-45 bg-gold" />
               African Stories. Global Soul.
@@ -84,7 +141,7 @@ export default async function Home() {
               <span className="italic text-gold">the Canvas.</span>
             </h1>
 
-            <p className="mt-6 max-w-md text-base leading-relaxed text-sand">
+            <p className="mt-6 max-w-md text-base leading-relaxed text-sand sm:text-lg">
               I create art rooted in emotion, identity, and African
               storytelling traditions reimagined for the digital age.
             </p>
@@ -97,74 +154,56 @@ export default async function Home() {
                 Meet the Artist
               </Button>
             </div>
+
+            <div className="mt-10 hidden max-w-lg grid-cols-3 gap-4 border-t border-offwhite/10 pt-6 text-xs uppercase tracking-[0.2em] text-offwhite/45 sm:grid">
+              <span>Signed originals</span>
+              <span>QR storytelling</span>
+              <span>Digital provenance</span>
+            </div>
           </div>
 
-          <div className="relative mx-auto aspect-4/5 w-full max-w-md py-6 sm:max-w-lg">
-            {/* Ambient glow */}
-            <div className="absolute inset-0 bg-linear-to-br from-gold/25 via-terracotta/10 to-transparent blur-3xl" />
+          <div className="relative mx-auto aspect-[7/5] w-full max-w-xl lg:col-span-7 lg:-ml-24 lg:max-w-4xl">
+            <div className="absolute inset-[6%] rounded-full bg-gold/20 blur-3xl" />
+            <div className="absolute inset-x-[10%] top-[8%] h-px -rotate-6 bg-gold/35" />
+            <span className="absolute right-[19%] top-[5%] h-3 w-3 rotate-45 bg-gold/70" />
+            <span className="absolute bottom-[16%] left-[21%] h-2.5 w-2.5 rotate-45 border border-gold/60" />
+            <span className="absolute right-[8%] top-[43%] h-16 w-px bg-offwhite/15" />
 
-            {/* Accent marks */}
-            <span className="absolute -top-2 right-6 h-3 w-3 rotate-45 bg-gold/70 sm:right-10" />
-            <span className="absolute bottom-10 -left-2 h-2 w-2 rotate-45 border border-gold/60" />
-            <span className="absolute left-1/2 top-2 h-px w-10 -translate-x-1/2 -rotate-6 bg-gold/40" />
-
-            {/* Back layer — top right */}
-            <div className="absolute -top-2 right-0 z-0 h-3/5 w-3/5 rotate-6 overflow-hidden rounded-2xl border border-gold/20 shadow-xl sm:right-2">
-              {heroSecondary?.image ? (
+            {heroCards.map((card) => (
+              <div
+                key={`${card.meta}-${card.title}`}
+                className={`group absolute overflow-hidden rounded-2xl border shadow-2xl shadow-black/55 transition-transform duration-700 hover:z-40 hover:-translate-y-2 hover:rotate-0 ${
+                  card.featured
+                    ? "border-gold/35"
+                    : "border-offwhite/10"
+                } ${card.className}`}
+              >
                 <img
-                  src={heroSecondary.image}
-                  alt=""
-                  className="h-full w-full object-cover grayscale"
+                  src={card.src}
+                  alt={card.artwork ? card.title : ""}
+                  className="h-full w-full object-cover grayscale transition duration-700 group-hover:scale-105 group-hover:grayscale-0"
                 />
-              ) : (
-                <div className="h-full w-full bg-linear-to-br from-charcoal-soft to-charcoal" />
-              )}
-              <div className="absolute inset-0 bg-terracotta/60 mix-blend-color" />
-            </div>
-
-            {/* Back layer — bottom left */}
-            <div className="absolute -bottom-2 left-0 z-0 h-1/2 w-3/5 -rotate-6 overflow-hidden rounded-2xl border border-gold/20 shadow-xl sm:left-2">
-              {heroTertiary?.image ? (
-                <img
-                  src={heroTertiary.image}
-                  alt=""
-                  className="h-full w-full object-cover grayscale"
+                <div
+                  className={`absolute inset-0 mix-blend-color ${card.tintClass}`}
                 />
-              ) : (
-                <div className="h-full w-full bg-linear-to-br from-gold/15 to-charcoal" />
-              )}
-              <div className="absolute inset-0 bg-gold/50 mix-blend-color" />
-            </div>
-
-            {/* Front layer — main portrait */}
-            <div className="absolute inset-x-8 inset-y-10 z-10 -rotate-2 overflow-hidden rounded-2xl border border-gold/30 shadow-2xl shadow-black/50 sm:inset-x-12">
-              {heroArtwork?.image ? (
-                <>
-                  <img
-                    src={heroArtwork.image}
-                    alt={heroArtwork.title}
-                    className="h-full w-full object-cover grayscale"
-                  />
-                  <div className="absolute inset-0 bg-linear-to-br from-gold/70 via-terracotta/40 to-charcoal/70 mix-blend-color" />
-                  <div className="absolute inset-0 bg-linear-to-t from-charcoal/70 via-transparent to-transparent" />
-                </>
-              ) : (
-                <div className="flex h-full w-full items-center justify-center bg-charcoal-soft">
-                  <span className="font-serif text-6xl italic text-gold/30">
-                    Tetra
-                  </span>
+                <div className="absolute inset-0 bg-linear-to-t from-charcoal/80 via-charcoal/5 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 px-4 py-3">
+                  <div className="min-w-0">
+                    <p className="truncate text-[0.62rem] font-medium uppercase tracking-[0.22em] text-offwhite">
+                      {card.title}
+                    </p>
+                    <p className="mt-1 text-[0.55rem] uppercase tracking-[0.24em] text-gold/80">
+                      {card.meta}
+                    </p>
+                  </div>
+                  {card.featured && (
+                    <span className="hidden shrink-0 rounded-full border border-gold/40 bg-charcoal/70 px-2.5 py-1 text-[0.55rem] uppercase tracking-[0.2em] text-gold backdrop-blur sm:inline-flex">
+                      Verified
+                    </span>
+                  )}
                 </div>
-              )}
-
-              {heroArtwork && (
-                <div className="absolute inset-x-0 bottom-0 flex items-center gap-2 px-4 py-3">
-                  <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold" />
-                  <p className="text-xs uppercase tracking-[0.2em] text-offwhite">
-                    {heroArtwork.title}
-                  </p>
-                </div>
-              )}
-            </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>

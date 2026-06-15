@@ -99,19 +99,36 @@ export default function AboutPage() {
     <>
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-offwhite/10 bg-charcoal">
-        <div className="mx-auto grid max-w-7xl lg:grid-cols-[1fr_1.05fr] lg:items-stretch">
+        <div className="absolute inset-0 bg-linear-to-br from-charcoal via-[#0d0b09] to-charcoal-soft" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_35%,rgba(200,162,74,0.24),transparent_34%),radial-gradient(circle_at_18%_76%,rgba(198,90,58,0.14),transparent_28%)]" />
+        <div className="absolute inset-0 opacity-[0.07] bg-[linear-gradient(rgba(245,241,234,0.8)_1px,transparent_1px),linear-gradient(90deg,rgba(245,241,234,0.8)_1px,transparent_1px)] bg-[size:78px_78px]" />
+
+        <div className="absolute inset-y-0 right-0 hidden w-[62%] lg:block">
+          <img
+            src="/images/IMG_3886.jpg"
+            alt=""
+            className="h-full w-full object-cover grayscale"
+          />
+          <div className="absolute inset-0 bg-gold/15 mix-blend-color" />
+          <div className="absolute inset-0 bg-linear-to-r from-charcoal via-charcoal/80 to-charcoal/18" />
+          <div className="absolute inset-0 bg-linear-to-t from-charcoal via-transparent to-charcoal/45" />
+        </div>
+
+        <div className="absolute inset-0 bg-linear-to-r from-charcoal via-charcoal/88 to-charcoal/45 lg:to-charcoal/20" />
+
+        <div className="relative mx-auto grid max-w-7xl gap-10 px-6 py-14 lg:grid-cols-12 lg:items-center lg:px-12 lg:py-16">
           {/* Text */}
-          <div className="flex flex-col justify-center px-6 py-16 lg:px-12 lg:py-24">
+          <div className="relative z-20 flex flex-col justify-center lg:col-span-5">
             <p className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.3em] text-gold">
               <span className="inline-block h-1.5 w-1.5 rotate-45 bg-gold" />
               Artist Profile
             </p>
 
-            <h1 className="mt-4 font-serif text-6xl leading-[1.05] sm:text-7xl">
+            <h1 className="mt-4 font-serif text-6xl leading-[1.05] sm:text-7xl lg:text-8xl">
               Tetra
             </h1>
 
-            <p className="mt-3 max-w-md font-serif text-xl italic leading-snug text-gold sm:text-2xl">
+            <p className="mt-3 max-w-md font-serif text-xl italic leading-snug text-gold sm:text-2xl lg:text-3xl">
               From recycled materials to visual storytelling.
             </p>
 
@@ -144,19 +161,59 @@ export default function AboutPage() {
                 <ArrowRightIcon className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </div>
+
+            <div className="mt-10 grid max-w-md grid-cols-3 gap-3 border-t border-offwhite/10 pt-5 text-[0.64rem] uppercase tracking-[0.22em] text-offwhite/45">
+              <span>Denim</span>
+              <span>Bottle tops</span>
+              <span>Timber offcuts</span>
+            </div>
           </div>
 
           {/* Image */}
-          <div className="relative h-72 sm:h-96 lg:h-auto lg:min-h-[560px]">
+          <div className="relative z-10 h-[420px] sm:h-[520px] lg:col-span-7 lg:h-[560px]">
+            <div className="absolute left-[6%] top-[9%] h-[78%] w-[70%] -rotate-3 overflow-hidden rounded-2xl border border-gold/20 opacity-35 shadow-2xl shadow-black/50 lg:left-[2%] lg:w-[62%]">
+              <img
+                src="/images/IMG_3051.jpg"
+                alt=""
+                className="h-full w-full object-cover grayscale"
+              />
+              <div className="absolute inset-0 bg-terracotta/35 mix-blend-color" />
+              <div className="absolute inset-0 bg-charcoal/30" />
+            </div>
+
+            <div className="absolute right-[2%] top-[4%] h-[88%] w-[72%] rotate-2 overflow-hidden rounded-2xl border border-gold/30 shadow-2xl shadow-black/60 lg:right-[4%] lg:w-[68%]">
             <img
               src="/images/IMG_3886.jpg"
               alt="Tetra — recycled material portrait artwork"
               className="absolute inset-0 h-full w-full object-cover grayscale"
             />
             <div className="absolute inset-0 bg-gold/15 mix-blend-color" />
-            <div className="absolute inset-0 bg-linear-to-r from-charcoal/50 via-transparent to-transparent lg:bg-linear-to-l lg:from-transparent lg:via-transparent lg:to-transparent" />
-            <div className="absolute inset-y-0 left-0 w-px bg-offwhite/10 lg:hidden" />
-            <div className="absolute inset-y-0 right-0 hidden w-2 bg-gold/70 lg:block" />
+              <div className="absolute inset-0 bg-linear-to-t from-charcoal/75 via-transparent to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 flex items-end justify-between gap-4 px-5 py-4">
+                <div>
+                  <p className="text-[0.62rem] uppercase tracking-[0.25em] text-gold">
+                    Shadows of Legacy
+                  </p>
+                  <p className="mt-1 text-xs text-offwhite/70">
+                    Recycled timber and mixed media
+                  </p>
+                </div>
+                <span className="rounded-full border border-gold/40 bg-charcoal/70 px-3 py-1 text-[0.58rem] uppercase tracking-[0.18em] text-gold backdrop-blur">
+                  2025
+                </span>
+              </div>
+            </div>
+
+            <div className="absolute bottom-[7%] left-[2%] hidden max-w-48 rotate-[-4deg] border border-offwhite/10 bg-charcoal/70 p-4 shadow-xl shadow-black/40 backdrop-blur sm:block lg:left-[1%]">
+              <p className="font-serif text-2xl text-offwhite">6,732</p>
+              <p className="mt-1 text-[0.6rem] uppercase tracking-[0.24em] text-gold">
+                collected bottle tops
+              </p>
+            </div>
+
+            <span className="absolute right-[8%] top-[1%] h-3 w-3 rotate-45 bg-gold" />
+            <span className="absolute bottom-[14%] right-[1%] h-14 w-px bg-offwhite/20" />
+            <span className="absolute left-[26%] top-[6%] h-px w-36 -rotate-6 bg-gold/40" />
           </div>
         </div>
       </section>
