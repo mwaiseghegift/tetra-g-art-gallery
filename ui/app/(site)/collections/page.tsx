@@ -31,30 +31,48 @@ export default async function CollectionsPage() {
         ]}
       />
       {/* Header */}
-      <section className="relative overflow-hidden border-b border-offwhite/10">
+      <section className="relative isolate overflow-hidden border-b border-offwhite/10 bg-charcoal">
         <img
           src={heroCollection?.cover_image || "/images/IMG_3903.jpg"}
           alt=""
-          className="absolute inset-0 h-full w-full object-cover object-center grayscale"
+          className="absolute inset-0 h-full w-full object-cover object-center opacity-45 grayscale"
         />
-        <div className="absolute inset-0 bg-gold/15 mix-blend-color" />
-        <div className="absolute inset-0 bg-linear-to-b from-charcoal/92 via-charcoal/78 to-charcoal/96" />
-        <div className="absolute inset-0 bg-linear-to-r from-charcoal via-charcoal/84 to-charcoal/55" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(200,162,74,0.18),transparent_34%)]" />
-        <div className="absolute inset-0 opacity-[0.08] bg-[linear-gradient(rgba(245,241,234,0.75)_1px,transparent_1px),linear-gradient(90deg,rgba(245,241,234,0.75)_1px,transparent_1px)] bg-[size:76px_76px]" />
-        <div className="absolute left-1/2 top-0 h-px w-2/3 -translate-x-1/2 bg-linear-to-r from-transparent via-gold/50 to-transparent" />
+        <div className="absolute inset-0 bg-gold/20 mix-blend-color" />
+        <div className="absolute inset-0 bg-linear-to-b from-charcoal/94 via-charcoal/82 to-charcoal/96" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_8%,rgba(200,162,74,0.3),transparent_24%),radial-gradient(circle_at_50%_100%,rgba(198,90,58,0.22),transparent_34%)]" />
+        <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-linear-to-b from-gold/45 via-offwhite/10 to-transparent" />
+        <div className="absolute inset-x-0 top-8 mx-auto hidden h-24 max-w-5xl rounded-full border border-gold/20 opacity-60 lg:block" />
+        <div className="absolute inset-0 opacity-[0.1] bg-[radial-gradient(circle,rgba(245,241,234,0.65)_1px,transparent_1.5px)] bg-[size:28px_28px]" />
         <div className="absolute inset-y-0 left-0 hidden w-4 bg-tribal-pattern opacity-40 lg:block" />
         <div className="absolute inset-y-0 right-0 hidden w-4 bg-tribal-pattern opacity-40 lg:block" />
 
-        <div className="relative mx-auto max-w-7xl px-6 py-14 text-center lg:px-12 lg:py-16">
-          <SectionLabel align="center">Collections</SectionLabel>
-          <h1 className="mt-4 font-serif text-5xl sm:text-6xl">
-            Curated Themes &amp; Series
-          </h1>
-          <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-sand italic">
-            Each collection is a thread of memory, identity, and emotion —
-            grouped artworks that belong to the same story.
-          </p>
+        <div className="relative mx-auto grid max-w-7xl gap-10 px-6 py-16 text-center lg:grid-cols-[16rem_minmax(0,1fr)_16rem] lg:items-center lg:px-12 lg:py-20">
+          <div className="hidden rotate-[-8deg] overflow-hidden rounded-2xl border border-offwhite/10 bg-charcoal/70 p-2 shadow-2xl shadow-black/30 lg:block">
+            <img
+              src="/images/IMG_3057.jpg"
+              alt=""
+              className="h-56 w-full object-cover grayscale"
+            />
+          </div>
+
+          <div>
+            <SectionLabel align="center">Collections</SectionLabel>
+            <h1 className="mt-4 font-serif text-5xl sm:text-6xl">
+              Curated Themes &amp; Series
+            </h1>
+            <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-sand italic">
+              Each collection is a thread of memory, identity, and emotion —
+              grouped artworks that belong to the same story.
+            </p>
+          </div>
+
+          <div className="hidden rotate-[7deg] overflow-hidden rounded-2xl border border-gold/25 bg-charcoal/70 p-2 shadow-2xl shadow-black/30 lg:block">
+            <img
+              src={heroCollection?.cover_image || "/images/IMG_3903.jpg"}
+              alt=""
+              className="h-56 w-full object-cover grayscale"
+            />
+          </div>
         </div>
       </section>
 

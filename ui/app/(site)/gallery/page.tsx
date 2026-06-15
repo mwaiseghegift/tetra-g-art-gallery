@@ -50,29 +50,47 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
         ]}
       />
       {/* Header */}
-      <section className="relative overflow-hidden border-b border-offwhite/10">
+      <section className="relative isolate overflow-hidden border-b border-offwhite/10 bg-charcoal-soft">
         <img
           src={sampleArtwork?.image || "/images/IMG_5848.jpg"}
           alt=""
-          className="absolute inset-0 h-full w-full object-cover object-center grayscale"
+          className="absolute inset-y-0 right-0 h-full w-full object-cover object-center opacity-70 grayscale lg:w-[62%]"
         />
-        <div className="absolute inset-0 bg-gold/15 mix-blend-color" />
-        <div className="absolute inset-0 bg-linear-to-b from-charcoal/90 via-charcoal/78 to-charcoal/95" />
-        <div className="absolute inset-0 bg-linear-to-r from-charcoal via-charcoal/82 to-charcoal/55" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(200,162,74,0.18),transparent_34%)]" />
-        <div className="absolute left-1/2 top-0 h-px w-2/3 -translate-x-1/2 bg-linear-to-r from-transparent via-gold/50 to-transparent" />
-        <div className="absolute inset-0 opacity-[0.08] bg-[linear-gradient(rgba(245,241,234,0.75)_1px,transparent_1px),linear-gradient(90deg,rgba(245,241,234,0.75)_1px,transparent_1px)] bg-[size:76px_76px]" />
-        <div className="absolute inset-y-0 left-0 hidden w-4 bg-tribal-pattern opacity-40 lg:block" />
-        <div className="absolute inset-y-0 right-0 hidden w-4 bg-tribal-pattern opacity-40 lg:block" />
+        <div className="absolute inset-0 bg-terracotta/20 mix-blend-color" />
+        <div className="absolute inset-0 bg-linear-to-r from-charcoal via-charcoal/88 to-charcoal/58" />
+        <div className="absolute inset-0 bg-linear-to-b from-charcoal/86 via-charcoal/56 to-charcoal/95" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_19%_45%,rgba(200,162,74,0.24),transparent_30%),radial-gradient(circle_at_78%_24%,rgba(198,90,58,0.22),transparent_32%)]" />
+        <div className="absolute left-0 top-0 h-full w-1/2 opacity-[0.1] bg-[linear-gradient(135deg,rgba(245,241,234,0.75)_1px,transparent_1px)] bg-[size:22px_22px]" />
+        <div className="absolute bottom-0 left-0 h-px w-full bg-linear-to-r from-gold via-terracotta to-transparent" />
+        <div className="absolute inset-y-0 left-0 hidden w-4 bg-tribal-pattern opacity-55 lg:block" />
 
-        <div className="relative mx-auto max-w-7xl px-6 py-14 text-center lg:px-12 lg:py-16">
-          <h1 className="mt-4 font-serif text-5xl sm:text-6xl">
-            The Gallery of Tetra
-          </h1>
-          <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-sand italic">
-            Each piece is a fragment of identity, memory, and emotion —
-            step inside and look closer.
-          </p>
+        <div className="relative mx-auto grid max-w-7xl gap-10 px-6 py-16 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-end lg:px-12 lg:py-20">
+          <div>
+            <SectionLabel>Gallery</SectionLabel>
+            <h1 className="mt-4 max-w-2xl font-serif text-5xl leading-tight sm:text-6xl">
+              The Gallery of Tetra
+            </h1>
+            <p className="mt-5 max-w-xl text-sm leading-relaxed text-sand italic">
+              Each piece is a fragment of identity, memory, and emotion —
+              step inside and look closer.
+            </p>
+          </div>
+          <div className="grid grid-cols-3 gap-3 rounded-2xl border border-offwhite/10 bg-charcoal/65 p-4 text-center shadow-2xl shadow-black/30 backdrop-blur">
+            {[
+              { label: "Artworks", value: artworks.length },
+              { label: "Views", value: totalViews },
+              { label: "Likes", value: totalLikes },
+            ].map((stat) => (
+              <div key={stat.label}>
+                <p className="font-serif text-2xl text-gold">
+                  {stat.value.toLocaleString()}
+                </p>
+                <p className="mt-1 text-[0.6rem] uppercase tracking-[0.18em] text-sand">
+                  {stat.label}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

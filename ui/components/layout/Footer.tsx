@@ -14,7 +14,7 @@ const email = directContactDetails.find((item) => item.name === "Email");
 
 export default function Footer() {
   return (
-    <footer className="border-t border-offwhite/10 bg-charcoal-soft">
+    <footer className="relative z-20 border-t border-offwhite/10 bg-charcoal-soft">
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-12">
         <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-4">

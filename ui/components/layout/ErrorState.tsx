@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import Button from "@/components/ui/Button";
 import { SearchIcon, ShieldCheckIcon } from "@/components/ui/Icons";
+import SiteBackdrop from "./SiteBackdrop";
 
 type ErrorStateAction =
   | {
@@ -37,18 +38,7 @@ export default function ErrorState({
 }: ErrorStateProps) {
   return (
     <section className="relative flex min-h-[calc(100vh-8rem)] items-center overflow-hidden border-b border-offwhite/10">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src="/images/IMG_3886.jpg"
-        alt=""
-        className="absolute inset-0 h-full w-full object-cover object-center grayscale"
-      />
-      <div className="absolute inset-0 bg-gold/15 mix-blend-color" />
-      <div className="absolute inset-0 bg-linear-to-b from-charcoal/92 via-charcoal/84 to-charcoal/96" />
-      <div className="absolute inset-0 bg-linear-to-r from-charcoal via-charcoal/86 to-charcoal/62" />
-      <div className="absolute inset-0 opacity-[0.08] bg-[linear-gradient(rgba(245,241,234,0.75)_1px,transparent_1px),linear-gradient(90deg,rgba(245,241,234,0.75)_1px,transparent_1px)] bg-[size:76px_76px]" />
-      <div className="absolute inset-y-0 left-0 hidden w-4 bg-tribal-pattern opacity-40 lg:block" />
-      <div className="absolute inset-y-0 right-0 hidden w-4 bg-tribal-pattern opacity-40 lg:block" />
+      <SiteBackdrop />
 
       <div
         className={`relative mx-auto grid w-full max-w-7xl gap-10 px-6 py-16 lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-center lg:px-12 ${

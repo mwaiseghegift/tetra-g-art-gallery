@@ -274,8 +274,9 @@ export default async function Home() {
             </Button>
           </div>
 
-          <div className="relative flex items-center justify-center py-8 lg:col-span-4">
-            <div className="relative aspect-9/16 w-52 overflow-hidden rounded-4xl border-4 border-charcoal bg-charcoal shadow-2xl">
+          <div className="relative flex h-[27rem] items-center justify-center py-8 lg:col-span-5 lg:-mx-8 xl:-mx-12">
+            <div className="absolute inset-[8%] rounded-full bg-terracotta/10 blur-3xl" />
+            <div className="relative h-[23rem] w-72 overflow-hidden rounded-[2rem] border-[6px] border-charcoal bg-charcoal shadow-2xl shadow-charcoal/35 sm:w-80 lg:h-[24rem] lg:w-[22rem] xl:w-[24rem]">
               {heroArtwork?.image ? (
                 <img
                   src={heroArtwork.image}
@@ -299,12 +300,12 @@ export default async function Home() {
               )}
             </div>
 
-            <div className="absolute -right-2 bottom-10 flex h-24 w-24 rotate-6 items-center justify-center rounded-2xl border border-charcoal/10 bg-offwhite p-3 shadow-xl sm:right-4">
+            <div className="absolute bottom-8 right-1 flex h-[7.5rem] w-[7.5rem] rotate-6 items-center justify-center rounded-[1.75rem] border border-charcoal/10 bg-offwhite p-4 shadow-2xl shadow-charcoal/25 sm:right-[12%] sm:h-[8.5rem] sm:w-[8.5rem] lg:bottom-12 lg:right-[2%] lg:h-36 lg:w-36 xl:right-[4%]">
               <QrIcon className="h-full w-full text-charcoal" />
             </div>
           </div>
 
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-3 lg:col-span-4">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-3 lg:col-span-3 lg:grid-cols-1">
             {scanFeatures.map(({ Icon, title, text }) => (
               <div key={title} className="flex flex-col items-center text-center">
                 <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-charcoal/15 text-terracotta">
