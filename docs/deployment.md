@@ -346,6 +346,19 @@ sudo systemctl restart tetra-ui
 - **Cloudinary uploads failing**: verify `CLOUDINARY_*` vars in `api/.env` and
   that `POST /api/uploads/signature/` returns 200 for a staff JWT.
 
+### 11. Updating the systemd services
+
+#### Gunicorn (`tetra-api.service`)
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl restart tetra-api
+sudo systemctl status tetra-api
+journalctl -u tetra-api -n 20 --no-pager
+```
+
+#### Next.js (`tetra-ui.service`)
+
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl restart tetra-ui
